@@ -39,6 +39,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
       body: JSON.stringify(user)
     });
     const responseData = await response.json()
+    
 
     if(!response.ok){
       const errorMessage = 
@@ -46,6 +47,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
        `Error: ${response.status} ${response.statusText}`;
       throw new Error(errorMessage);
   }
+  
   setUser(initialUser)
 }
 catch (error){
