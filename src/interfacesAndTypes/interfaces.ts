@@ -14,4 +14,5 @@ export type userData = regUserData & {
   bio?:string;
   avatar?: image;
   banner?:image;
+  
 }

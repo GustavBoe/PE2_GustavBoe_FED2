@@ -38,7 +38,9 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     });
     const responseData = await response.json()
     const accessToken = responseData.data.accessToken;
-    addToLocalStorage("accessToken", accessToken)
+    
+    addToLocalStorage("accessToken", accessToken);
+   
     
     if(!response.ok){
       const errorMessage = 
