@@ -1,12 +1,16 @@
 
 import './App.css'
-import RegisterPage from '@/pages/register'
+
+import LoginPage from '@/pages/login'
+
+
 function App() {
   
 
   return (
    <div className='flex flex-col'>
-<RegisterPage/>
+
+<LoginPage/>
    </div>
   )
 }
