@@ -1,9 +1,9 @@
-import GetProfileData from "@/components/api/profile/GetProfile";
+import DisplayProfile from "@/components/api/profile/DisplayProfile";
 
 export default function ProfilePage(){
   return(
     <div>
-      <GetProfileData name="Spellemann"/>
+      <DisplayProfile name="Spellemann"/>
     </div>
   )
 }

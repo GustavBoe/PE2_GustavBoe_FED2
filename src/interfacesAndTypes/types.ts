@@ -18,6 +18,6 @@ export type userData = regUserData & {
   banner?:image;
   
 }
-export type getProfileDataProps = {
+export type profileDataProps = {
   name:string;
 }
