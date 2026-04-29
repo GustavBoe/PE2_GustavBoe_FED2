@@ -22,8 +22,12 @@ function GetProfileData({name}:getProfileDataProps ){
 
 
   useEffect(() => {
-    if(!name){return};
-  
+    
+    if(!accessToken){
+        alert("Log in to view this page.")
+        navigate("/auth/login")
+        return
+      }
   const fetchProfile = async() => {
     setIsLoading(true)
      try {
@@ -36,11 +40,7 @@ function GetProfileData({name}:getProfileDataProps ){
         );
         const responseData = await response.json();
         
-         if(response.status === 401){
-          alert("Log in to view this page.")
-        navigate("/auth/login")
-        return
-      }
+         
         if(!response.ok){
       const errorMessage = 
       responseData.errors?.[0]?.message ||

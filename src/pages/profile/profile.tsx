@@ -1,4 +1,4 @@
-import GetProfileData from "@/api/profile/getProfile"
+import GetProfileData from "@/api/profile/getProfile";
 
 export default function ProfilePage(){
   return(
