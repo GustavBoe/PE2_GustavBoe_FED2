@@ -1,4 +1,4 @@
-import RegisterUser from "@/api/auth/RegisterUser";
+import RegisterUser from "@/components/api/auth/RegisterUser";
 
 export default function RegisterPage(){
   return(

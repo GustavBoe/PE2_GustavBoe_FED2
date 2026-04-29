@@ -1,4 +1,4 @@
-import GetProfileData from "@/api/profile/getProfile";
+import GetProfileData from "@/components/api/profile/GetProfile";
 
 export default function ProfilePage(){
   return(
