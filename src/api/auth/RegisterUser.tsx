@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { BASE_URL } from "@/const/const";
-import type { regUserData } from "@/interfacesAndTypes/interfaces";
+import { BASE_URL, API_KEY } from "@/const/const";
+import type { regUserData } from "@/interfacesAndTypes/types";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
+
 
 //Help from ChatGPT to reset the user object"
 const initialUser: regUserData = {
@@ -39,7 +39,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
       body: JSON.stringify(user)
     });
     const responseData = await response.json()
-    
+    console.log(responseData);
 
     if(!response.ok){
       const errorMessage = 

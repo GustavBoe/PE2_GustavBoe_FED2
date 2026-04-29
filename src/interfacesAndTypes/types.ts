@@ -1,3 +1,5 @@
+
+
 type image = {
   url:string;
   alt:string;
@@ -15,4 +17,7 @@ export type userData = regUserData & {
   avatar?: image;
   banner?:image;
   
+}
+export type getProfileDataProps = {
+  name:string;
 }

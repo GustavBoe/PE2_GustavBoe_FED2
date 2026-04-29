@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { addToLocalStorage } from "@/storage/localStorage";
 import { BASE_URL } from "@/const/const";
-import type {logUserData} from "@/interfacesAndTypes/interfaces";
+import type {logUserData} from "@/interfacesAndTypes/types";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
