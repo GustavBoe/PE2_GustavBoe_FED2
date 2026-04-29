@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { HOLIDAZE_URL, accessToken, API_KEY } from "@/const/const";
 import type { getProfileDataProps, userData } from "@/interfacesAndTypes/types";
 
@@ -16,6 +17,7 @@ function GetProfileData({name}:getProfileDataProps ){
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
 
 
@@ -33,7 +35,12 @@ function GetProfileData({name}:getProfileDataProps ){
             }}
         );
         const responseData = await response.json();
-        console.log(responseData.data)
+        
+         if(response.status === 401){
+          alert("Log in to view this page.")
+        navigate("/auth/login")
+        return
+      }
         if(!response.ok){
       const errorMessage = 
       responseData.errors?.[0]?.message ||
@@ -44,14 +51,14 @@ function GetProfileData({name}:getProfileDataProps ){
       setUser(responseData.data);
 
       } catch (err) {
-        alert("Something went wrong, check console for details");
-        console.log(err)
+        alert(err)
+        
       } finally {
         setIsLoading(false);
       }
     };
     fetchProfile();
-  }, [name]);
+  }, [name, navigate]);
   if (isLoading) return <p>Loading profile...</p>;
   if (!user) return <p> No profile data</p>;
 
