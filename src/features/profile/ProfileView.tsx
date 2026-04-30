@@ -1,11 +1,14 @@
 import {useState, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import getProfile from "@/api/profile/getProfile";
-import type {getProfileDataProps, userData} from "@/interfacesAndTypes/types";
+import type {userData} from "@/interfacesAndTypes/types";
 import { accessToken } from "@/const/const";
 
-function DisplayProfile({name}:getProfileDataProps ){
+function ProfileView(){
+  const {name} = useParams<{name:string}>();
   
+  
+
   const [user, setUser] = useState<userData>({
     name:"",
     email:"",
@@ -23,11 +26,14 @@ function DisplayProfile({name}:getProfileDataProps ){
 
   useEffect(() => {
     
+    if (!name) return;
+    
     if(!accessToken){
         alert("Log in to view this page.")
         navigate("/auth/login")
         return
       }
+      
       const loadProfile = async() => {
         setIsLoading(true)
         try{
@@ -57,4 +63,4 @@ function DisplayProfile({name}:getProfileDataProps ){
         
   }
 
-  export default DisplayProfile;
+  export default ProfileView;
