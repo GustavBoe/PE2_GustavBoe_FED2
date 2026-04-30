@@ -15,8 +15,8 @@ function ProfileView(){
     password:"",
     venueManager:false,
     bio:"",
-    avatar: undefined,
-    banner:undefined
+    avatar:{url:"", alt:""},
+    banner:{url:"", alt:""}
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,7 @@ function ProfileView(){
   useEffect(() => {
     
     if (!name) return;
-    
+
     if(!accessToken){
         alert("Log in to view this page.")
         navigate("/auth/login")

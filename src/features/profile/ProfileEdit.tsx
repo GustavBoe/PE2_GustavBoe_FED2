@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import getProfile from "@/api/profile/getProfile";
 import type {userData, editProfileDataProps} from "@/interfacesAndTypes/types";
-import { accessToken, userName, HOLIDAZE_URL, API_KEY } from "@/const/const";
+import { accessToken, userName, HOLIDAZE_URL, API_KEY, avatarFailsafe, bannerFailsafe } from "@/const/const";
 
 function ProfileEdit(){
 const {name} = useParams<{name:string}>();
@@ -14,23 +14,25 @@ const [oldUser, setOldUser] = useState<userData>({
     password:"",
     venueManager:false,
     bio:"",
-    avatar: undefined,
-    banner:undefined
-  });
+    avatar:{url:"", alt:""},
+    banner:{url:"", alt:""}
+  })
+  
 const initialUser: userData = {
     name:"",
     email:"",
     password:"",
     venueManager:false,
     bio:"",
-    avatar: undefined,
-    banner:undefined
+    avatar:{url:"", alt:""},
+    banner:{url:"", alt:""}
   };
+
   const [user, setUser] = useState<editProfileDataProps>({
     venueManager:false,
     bio:"",
-    avatar: undefined,
-    banner:undefined
+    avatar:{url:"", alt:""},
+    banner:{url:"", alt:""}
   });
   
   const [isLoading, setIsLoading] = useState(false);
@@ -85,7 +87,17 @@ const initialUser: userData = {
             Authorization: `Bearer ${accessToken}`,
             "X_Noroff-API-Key": API_KEY,
           },
-          body: JSON.stringify(user)
+          //Help from ChatGPT on how to add failsafe urls to request
+          body: JSON.stringify({...user,
+            avatar: {
+              ...user.avatar,
+              url:user.avatar.url.trim() || avatarFailsafe
+            },
+            banner: {
+              ...user.banner,
+              url:user.banner.url.trim() || bannerFailsafe
+            }
+          })
         });
         const responseData = await response.json()
         
@@ -97,6 +109,7 @@ const initialUser: userData = {
       }
       
       setUser(initialUser)
+      navigate(`/profile/${userName}`)
     }
     catch (error){
       console.log("Could not register user:",error)
@@ -106,7 +119,6 @@ const initialUser: userData = {
       }
     };
     return(
-      
         <form onSubmit={handleSubmit}>
           <h2>Edit profile</h2>
           <div>
@@ -124,6 +136,79 @@ const initialUser: userData = {
           }
           
         />
+
+        <label htmlFor="avatarUrl">Avatar url:</label>
+        <input 
+        type="text"
+        id="avatarUrl"
+        value={user.avatar?.url}
+        placeholder={oldUser.avatar?.url}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
+          setUser(prev => ({...prev, avatar: {...prev.avatar,
+             url: e.target.value
+        }
+      }))
+          }
+          
+        />
+        <label htmlFor="avatarAlt">Avatar alt:</label>
+        <input 
+        type="text"
+        id="avatarAlt"
+        value={user.avatar?.alt}
+        placeholder={oldUser.avatar?.alt}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
+          setUser(prev => ({...prev, avatar: {...prev.avatar,
+             alt: e.target.value
+        }
+      }))
+          }
+          
+        />
+        <label htmlFor="bannerUrl">Banner url:</label>
+        <input 
+        type="text"
+        id="bannerUrl"
+        value={user.banner?.url}
+        placeholder={oldUser.banner?.url}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
+          setUser(prev => ({...prev, banner: {...prev.banner,
+             url: e.target.value
+        }
+      }))
+          }
+          
+        />
+        <div>{oldUser.venueManager?  <>
+        <label htmlFor="venueManager">Do you wish to quit being a venue manager?</label>
+        <input 
+        type="checkbox"
+        id="venueManager"
+        checked={user.venueManager}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=>
+          setUser(prev => ({
+            ...prev,
+            venueManager:e.target.checked
+          }))
+        }/>
+        </> 
+        :
+        <>
+        <label htmlFor="venueManager">Do you wish to be a venue manager?</label>
+        <input 
+        type="checkbox"
+        id="venueManager"
+        checked={user.venueManager}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=>
+          setUser(prev => ({
+            ...prev,
+            venueManager:e.target.checked
+          }))
+        }/></>
+           }
+        </div>
+        
+       
           </div>
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Saving changes..' : 'Save changes'}

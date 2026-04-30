@@ -14,8 +14,8 @@ export type regUserData = logUserData & {
 }
 export type userData = regUserData & {
   bio?:string;
-  avatar?: image;
-  banner?:image;
+  avatar: image;
+  banner:image;
   
 }
 export type getProfileDataProps = {
@@ -24,6 +24,6 @@ export type getProfileDataProps = {
 export type editProfileDataProps = {
   venueManager:boolean;
   bio?:string;
-  avatar?: image;
-  banner?:image;
+  avatar: image;
+  banner:image;
 }
