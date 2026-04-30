@@ -21,3 +21,9 @@ export type userData = regUserData & {
 export type getProfileDataProps = {
   name:string;
 }
+export type editProfileDataProps = {
+  venueManager:boolean;
+  bio?:string;
+  avatar?: image;
+  banner?:image;
+}
