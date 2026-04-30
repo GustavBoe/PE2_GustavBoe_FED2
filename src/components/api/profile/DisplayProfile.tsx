@@ -1,10 +1,10 @@
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import getProfile from "@/api/getProfile";
-import type {profileDataProps, userData} from "@/interfacesAndTypes/types";
+import getProfile from "@/api/profile/getProfile";
+import type {getProfileDataProps, userData} from "@/interfacesAndTypes/types";
 import { accessToken } from "@/const/const";
 
-function DisplayProfile({name}:profileDataProps ){
+function DisplayProfile({name}:getProfileDataProps ){
   
   const [user, setUser] = useState<userData>({
     name:"",

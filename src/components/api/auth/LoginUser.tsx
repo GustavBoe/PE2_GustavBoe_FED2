@@ -20,13 +20,9 @@ const [user, setUser] = useState<logUserData>({
 const [isSubmitting, setIsSubmitting] = useState(false);
 
 //From JS frameworks module 3.3
-
 const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   setIsSubmitting(true);
-  ;
-
-  
   try{
     const response = await fetch(`${BASE_URL}/auth/login`, {
       method: "POST",
@@ -40,7 +36,6 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     const accessToken = responseData.data.accessToken;
     
     addToLocalStorage("accessToken", accessToken);
-   
     
     if(!response.ok){
       const errorMessage = 
