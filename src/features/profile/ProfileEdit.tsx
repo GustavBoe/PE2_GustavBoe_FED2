@@ -58,7 +58,12 @@ const initialUser: userData = {
           try{
             const profileData = await getProfile(name)
             setOldUser(profileData.data);
-            
+            setUser({
+              venueManager: profileData.data.venueManager,
+              bio: profileData.data.bio,
+              avatar: profileData.data.avatar || {url:"", alt:""},
+              banner: profileData.data.banner || {url:"", alt:""}
+            })
           }
           catch (err) {
           alert(err)
@@ -80,12 +85,13 @@ const initialUser: userData = {
       e.preventDefault();
       setIsSubmitting(true);
       try{
-        const response = await fetch(`${HOLIDAZE_URL}/`, {
+        const response = await fetch(`${HOLIDAZE_URL}/profiles/${userName}`, {
           method: "PUT",
           headers:{
             "Content-Type": "application/json",
+            "X-Noroff-API-Key": API_KEY,
             Authorization: `Bearer ${accessToken}`,
-            "X_Noroff-API-Key": API_KEY,
+            
           },
           //Help from ChatGPT on how to add failsafe urls to request
           body: JSON.stringify({...user,
@@ -102,6 +108,7 @@ const initialUser: userData = {
         const responseData = await response.json()
         
         if(!response.ok){
+          console.log(API_KEY)
           const errorMessage = 
           responseData.errors?.[0]?.message ||
            `Error: ${response.status} ${response.statusText}`;
@@ -179,8 +186,8 @@ const initialUser: userData = {
           }
           
         />
-        <div>{oldUser.venueManager?  <>
-        <label htmlFor="venueManager">Do you wish to quit being a venue manager?</label>
+        
+        <label htmlFor="venueManager">I want to be a venue manager</label>
         <input 
         type="checkbox"
         id="venueManager"
@@ -191,22 +198,7 @@ const initialUser: userData = {
             venueManager:e.target.checked
           }))
         }/>
-        </> 
-        :
-        <>
-        <label htmlFor="venueManager">Do you wish to be a venue manager?</label>
-        <input 
-        type="checkbox"
-        id="venueManager"
-        checked={user.venueManager}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>)=>
-          setUser(prev => ({
-            ...prev,
-            venueManager:e.target.checked
-          }))
-        }/></>
-           }
-        </div>
+        
         
        
           </div>
