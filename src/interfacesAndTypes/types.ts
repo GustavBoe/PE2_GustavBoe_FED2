@@ -27,3 +27,33 @@ export type editProfileDataProps = {
   avatar: image;
   banner:image;
 }
+type venueMeta = {
+  wifi:boolean;
+  parking:boolean;
+  breakfast:boolean;
+  pets:boolean;
+}
+type venueLocation = {
+  address: string; 
+  city: string; 
+  zip: string; 
+  country: string; 
+  continent: string; 
+  lat: number; 
+  ong: number;
+}
+export type VenueDataApi = {
+   id: string;
+  name: string;
+  description: string;
+  media:image[];
+  price:number;
+  maxGuests:number;
+  rating:number;
+  created: string;
+  updated: string;
+  meta: venueMeta;
+  location:venueLocation;
+  _owner:userData;
+  
+}
