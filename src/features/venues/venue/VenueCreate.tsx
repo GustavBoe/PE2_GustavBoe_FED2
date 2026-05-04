@@ -2,8 +2,10 @@ import { useState } from "react";
 
 import { HOLIDAZE_URL, accessToken } from "@/const/const";
 import type {image, venueDataApi} from "@/interfacesAndTypes/types";
+import { useNavigate } from "react-router-dom";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
+
 
 //Help from ChatGPT to reset the user object"
 const initialVenue: venueDataApi = {
@@ -34,6 +36,7 @@ const initialVenue: venueDataApi = {
 };
 
 function CreateVenue(){
+  const navigate = useNavigate();
 const [venue, setVenue] = useState<venueDataApi>({
   name: "",
   description: "",
@@ -103,6 +106,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
   }
   
   setVenue(initialVenue)
+  navigate(`/venues/${responseData.data.id}`)
 }
 catch (error){
   console.log("Could not register user:",error)
