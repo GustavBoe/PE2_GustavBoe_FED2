@@ -1,6 +1,6 @@
 
 
-type image = {
+export type image = {
   url:string;
   alt:string;
 }
@@ -27,33 +27,35 @@ export type editProfileDataProps = {
   avatar: image;
   banner:image;
 }
-type venueMeta = {
-  wifi:boolean;
-  parking:boolean;
-  breakfast:boolean;
-  pets:boolean;
+export type venueMeta = {
+  wifi?:boolean;
+  parking?:boolean;
+  breakfast?:boolean;
+  pets?:boolean;
 }
-type venueLocation = {
-  address: string; 
-  city: string; 
-  zip: string; 
-  country: string; 
-  continent: string; 
-  lat: number; 
-  ong: number;
+export type venueLocation = {
+  address?: string; 
+  city?: string; 
+  zip?: string; 
+  country?: string; 
+  continent?: string; 
+  lat?: number; 
+  ong?: number;
 }
-export type VenueDataApi = {
-   id: string;
+export type venueDataApi = {
   name: string;
   description: string;
-  media:image[];
+  media?:image[];
   price:number;
   maxGuests:number;
-  rating:number;
+  rating?:number;
   created: string;
   updated: string;
   meta: venueMeta;
   location:venueLocation;
-  _owner:userData;
   
+}
+export type venueDataOwner = venueDataApi & {
+  id: string;
+_owner:userData;
 }

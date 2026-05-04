@@ -27,7 +27,7 @@ function ProfileView(){
   useEffect(() => {
     
     if (!name) return;
-
+    
     if(!accessToken){
         alert("Log in to view this page.")
         navigate("/auth/login")
@@ -37,6 +37,7 @@ function ProfileView(){
       const loadProfile = async() => {
         setIsLoading(true)
         try{
+         
           const profileData = await getProfile(name)
           setUser(profileData.data);
           console.log(profileData)

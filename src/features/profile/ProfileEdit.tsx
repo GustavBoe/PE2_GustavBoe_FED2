@@ -57,6 +57,7 @@ const initialUser: userData = {
           setIsLoading(true)
           try{
             const profileData = await getProfile(name)
+            
             setOldUser(profileData.data);
             setUser({
               venueManager: profileData.data.venueManager,
@@ -64,6 +65,7 @@ const initialUser: userData = {
               avatar: profileData.data.avatar || {url:"", alt:""},
               banner: profileData.data.banner || {url:"", alt:""}
             })
+      
           }
           catch (err) {
           alert(err)
@@ -131,12 +133,11 @@ const initialUser: userData = {
           <div>
            <p>{oldUser.name}</p>
             <label htmlFor="bio">Bio:</label>
-        <input 
-        type="text"
+        <textarea 
         id="bio"
         value={user.bio}
         placeholder={oldUser.bio}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>)=> 
           setUser(prev => ({...prev,
              bio: e.target.value
             }))
