@@ -20,7 +20,6 @@ function App() {
       <Route path="/" element={<HomeView/>}/>
       <Route path="/auth/login" element={<LoginUser/>} />
       <Route path="/auth/register" element={<RegisterUser/>} />
-      
       <Route path="/profile/:name" element= {<ProfileLayout/>}>
         <Route index element={<ProfileView/>} />
         <Route path="edit" element={<ProfileEdit/>}/>
@@ -32,7 +31,6 @@ function App() {
           <Route path="edit" element={<VenueEdit/>}/>
         </Route>
       </Route>
-      
     </Routes>
    </div>
   )

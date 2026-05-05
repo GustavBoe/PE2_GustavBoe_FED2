@@ -10,15 +10,10 @@ export default async function deleteVenue(id: string) {
       Authorization: `Bearer ${accessToken}`,
     },
   })
-  const responseData = await response.json();
-        const data = responseData.data;
-        if(!response.ok){
-      const errorMessage = 
-      data.errors?.[0]?.message ||
-       `Error: ${response.status} ${response.statusText}`;
-      throw new Error(errorMessage);
-      }
-        return data;
+  if (response.status === 204) {
+    return { success: true };
+  }
+  
       }
       catch (err) {
         alert(err) 
