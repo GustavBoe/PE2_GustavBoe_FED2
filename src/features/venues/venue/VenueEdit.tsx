@@ -41,7 +41,10 @@ export default function VenueEdit(){
   
   useEffect(() => {
 
-    if (!id) return;      
+    if (!id){
+      alert("Could not get venue")
+      navigate("/")
+    }      
     if(!accessToken){
         alert("Log in to view this page.")
         navigate("/auth/login")
@@ -51,6 +54,7 @@ export default function VenueEdit(){
       const loadVenue = async() => {
         setIsLoading(true)
         try{
+          if (!id) return;
           const venueData = await getVenue(id)
           
           if(venueData.owner.name !== userName){
