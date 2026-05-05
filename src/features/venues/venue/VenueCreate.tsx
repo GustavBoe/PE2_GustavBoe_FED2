@@ -30,7 +30,7 @@ const initialVenue: venueDataApi = {
       country:"",
       continent:"",
       lat:0,
-      ong:0
+      lng:0
     },
   
 };
@@ -59,7 +59,7 @@ const [venue, setVenue] = useState<venueDataApi>({
     country:"",
     continent:"",
     lat:0,
-    ong:0
+    lng:0
   } 
 });
 //ChatGPT rubberducking to media solution
@@ -355,17 +355,17 @@ return(
             }))
           }
         />
-        <label htmlFor="ong">Ong</label>
+        <label htmlFor="lng">Lng</label>
         <input 
-        type="text"
-        id="ong"
-        value={venue.location.ong}
+        type="number"
+        id="lng"
+        value={venue.location.lng}
         onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
           setVenue(prev => ({
               ...prev,
               location:{
                 ...prev.location,
-                ong: Number(e.target.value)
+                lng: Number(e.target.value)
               }
             }))
           }

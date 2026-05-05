@@ -40,7 +40,7 @@ export type venueLocation = {
   country?: string; 
   continent?: string; 
   lat?: number; 
-  ong?: number;
+  lng?: number;
 }
 export type venueDataApi = {
   name: string;
@@ -57,5 +57,5 @@ export type venueDataApi = {
 }
 export type venueDataOwner = venueDataApi & {
   id: string;
-_owner:userData;
+  owner:userData;
 }

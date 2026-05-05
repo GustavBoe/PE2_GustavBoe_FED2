@@ -132,7 +132,7 @@ const initialUser: userData = {
           <h2>Edit profile</h2>
           <div>
            <p>{oldUser.name}</p>
-            <label htmlFor="bio">Bio:</label>
+        <label htmlFor="bio">Bio:</label>
         <textarea 
         id="bio"
         value={user.bio}
@@ -142,7 +142,6 @@ const initialUser: userData = {
              bio: e.target.value
             }))
           }
-          
         />
 
         <label htmlFor="avatarUrl">Avatar url:</label>

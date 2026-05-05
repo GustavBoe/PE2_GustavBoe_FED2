@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import getVenue from "@/api/venues/getVenue";
 
-import type { image, venueDataApi } from "@/interfacesAndTypes/types";
+import type { image, userData, venueDataOwner } from "@/interfacesAndTypes/types";
 export default function VenueView(){
   const {id} = useParams<{id:string}>();
   
-  const [venue, setVenue] = useState<venueDataApi>({
+  const [venue, setVenue] = useState<venueDataOwner>({
+    id:"",
     name: "",
     description: "",
     media:[] as image[],
@@ -28,14 +29,14 @@ export default function VenueView(){
       country:"",
       continent:"",
       lat:0,
-      ong:0
-    } 
+      lng:0
+    },
+    owner:{} as userData
   });
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false)
   
-  console.log(id);
-  console.log(navigate)
+  
   
    useEffect(() => {
       
@@ -45,11 +46,44 @@ export default function VenueView(){
         const loadVenue = async() => {
           setIsLoading(true)
           try{
-           
-            const venueData = await getVenue(id)
-            setVenue(venueData.data);
-            console.log(venueData)
-          }
+                    const venueData = await getVenue(id)
+                    
+                    setVenue({
+                      id:venueData.id,
+                      name: venueData.name,
+                      description: venueData.description,
+                      media:[] as image[],
+                      price:venueData.price,
+                      maxGuests:venueData.maxGuests,
+                      rating:venueData.rating,
+                      created: venueData.created,
+                      updated: venueData.updated,
+                      meta: {
+                        wifi: venueData.meta.wifi,
+                        parking:venueData.meta.parking,
+                        breakfast:venueData.meta.breakfast,
+                        pets:venueData.meta.pets
+                      },
+                      location:{
+                        address:"",
+                       city:"",
+                       zip:"",
+                       country:"",
+                       continent:"",
+                       lat:0,
+                       lng:0
+                      },
+                      owner:{
+                        name:"",
+                        email:"",
+                        password:"",
+                        venueManager:false,
+                        bio:"",
+                        avatar:{url:"", alt:""},
+                        banner:{url:"", alt:""}}
+                    })
+                  
+                  }
           catch (err) {
           alert(err)
           
@@ -63,10 +97,12 @@ export default function VenueView(){
 
   if (isLoading) return <p>Loading venue...</p>;
   if (!venue) return <p> No venue data</p>;
+  console.log(venue)
   return(
     <div>
       <h1>{venue.name}</h1>
      <p>{venue.description}</p>
+     <p>{venue.location.lat}</p>
     </div>
   )
 }

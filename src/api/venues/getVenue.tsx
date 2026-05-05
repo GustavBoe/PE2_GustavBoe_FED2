@@ -5,8 +5,8 @@ export default async function getVenue(id:string) {
         const response = await fetch(
           `${HOLIDAZE_URL}/venues/${id}?_owner=true&_bookings=true`
         );
-        const data = await response.json();
-
+        const responseData = await response.json();
+        const data = responseData.data;
         if(!response.ok){
       const errorMessage = 
       data.errors?.[0]?.message ||
