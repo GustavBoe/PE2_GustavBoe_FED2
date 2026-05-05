@@ -10,9 +10,7 @@ export default async function deleteVenue(id: string) {
       Authorization: `Bearer ${accessToken}`,
     },
   })
-  if (response.status === 204) {
-    return { success: true };
-  }
+  return response;
   
       }
       catch (err) {

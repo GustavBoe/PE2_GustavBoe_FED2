@@ -59,3 +59,8 @@ export type venueDataOwner = venueDataApi & {
   id: string;
   owner:userData;
 }
+
+export type DeleteResponse = {
+  success: boolean;
+  status: number;
+};

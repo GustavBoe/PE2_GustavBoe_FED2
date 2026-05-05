@@ -142,19 +142,23 @@ export default function VenueEdit(){
         return null;
         }
         try{
-          const deleteResponse = await deleteVenue(id);
-          if(!deleteResponse){
-            alert("Could not delete venue")
-            navigate(`/venues/${id}/edit`)
+          const response = await deleteVenue(id);
+          if (!response) {
+            alert("Could not delete venue");
+            navigate(`/venues/${id}/edit`);
+            return;
           }
-          if(deleteResponse.status === 204){
+
+          if (response.status === 204) {
             alert("Venue was deleted");
-            navigate(`profile/${userName}`)
+            navigate(`/profile/${userName}`);
           }
         }
+
         catch (err) {
         alert(err) 
       }
+      
       finally{
       setIsLoading(false)  
       }
