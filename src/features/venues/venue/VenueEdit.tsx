@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import getVenue from "@/api/venues/getVenue";
+import deleteVenue from "@/api/venues/deleteVenue";
 import type { image, venueDataApi } from "@/interfacesAndTypes/types";
 import { API_KEY, HOLIDAZE_URL, accessToken, userName } from "@/const/const";
 
 export default function VenueEdit(){
 
-  const {id} = useParams<{id:string}>()
+  const {id} = useParams<{id:string}>();
+  
   const [venue, setVenue] = useState<venueDataApi>({
       name: "",
       description: "",
@@ -35,7 +37,7 @@ export default function VenueEdit(){
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-    
+  
   
   useEffect(() => {
 
@@ -90,7 +92,7 @@ export default function VenueEdit(){
       loadVenue();
       }, [id, navigate]);
 
-      if (isLoading) return <p>Loading venue data...</p>;
+      if (isLoading) return <p>Loading...</p>;
       if (!venue){
         alert("Unable to fetch venue data, returning to home");
         navigate("/")
@@ -130,7 +132,31 @@ export default function VenueEdit(){
         setIsSubmitting(false)
         }
       };
+      const handleDelete = async() => {
+        if(!id){
+        alert("Unable to get venue");
+        return null;
+        }
+        try{
+          const deleteResponse = await deleteVenue(id);
+          if(!deleteResponse){
+            alert("Could not delete venue")
+            navigate(`/venues/${id}/edit`)
+          }
+          if(deleteResponse.status === 204){
+            alert("Venue was deleted");
+            navigate(`profile/${userName}`)
+          }
+        }
+        catch (err) {
+        alert(err) 
+      }
+      finally{
+      setIsLoading(false)  
+      }
+      };
       return(
+        <div>
           <form onSubmit={handleSubmit} className="flex flex-col mx-auto justify-center">
             <h2 className="self-center">Edit venue</h2>
             <div className="flex flex-col mx-auto justify-center con">
@@ -382,6 +408,7 @@ export default function VenueEdit(){
               {isSubmitting ? 'Saving changes..' : 'Save changes'}
             </button>
           </form>
-        
+        <button type="button" onClick={handleDelete} >Delete venue</button>
+        </div>
       )
   }

@@ -47,7 +47,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
   setUser(initialUser)
 }
 catch (error){
-  console.log("Could not register user:",error)
+  console.log("Could not log in user:",error)
 }
 finally{
   setIsSubmitting(false)
