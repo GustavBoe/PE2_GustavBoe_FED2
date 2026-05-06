@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BASE_URL, API_KEY } from "@/const/const";
 import type { regUserData } from "@/interfacesAndTypes/types";
 
@@ -13,6 +14,8 @@ const initialUser: regUserData = {
 };
 
 function RegisterUser(){
+  const navigate = useNavigate();
+
 const [user, setUser] = useState<regUserData>({
   name:"",
   email:"",
@@ -49,6 +52,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
   }
   
   setUser(initialUser)
+  navigate("/")
 }
 catch (error){
   console.log("Could not register user:",error)

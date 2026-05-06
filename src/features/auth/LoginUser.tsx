@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { addToLocalStorage } from "@/storage/localStorage";
 import { BASE_URL } from "@/const/const";
 import type {logUserData} from "@/interfacesAndTypes/types";
@@ -12,6 +13,7 @@ const initialUser: logUserData = {
 };
 
 function LoginUser(){
+  const navigate = useNavigate();
 const [user, setUser] = useState<logUserData>({
   email:"",
   password:"",
@@ -45,6 +47,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
   }
   
   setUser(initialUser)
+  navigate("/")
 }
 catch (error){
   console.log("Could not log in user:",error)
