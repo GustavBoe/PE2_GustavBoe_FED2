@@ -27,6 +27,17 @@ export type editProfileDataProps = {
   avatar: image;
   banner:image;
 }
+export type AllVenuesData = {
+  id: string;
+  name: string;
+  description: string;
+  media?:image[];
+  price:number;
+  maxGuests:number;
+  rating?:number;
+  meta: venueMeta;
+  location:venueLocation;
+}
 export type venueMeta = {
   wifi?:boolean;
   parking?:boolean;

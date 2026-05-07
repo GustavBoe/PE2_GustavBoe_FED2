@@ -39,7 +39,7 @@ export default function VenueView(){
   
   
    useEffect(() => {
-      
+        
       if (!id) return;
       
     
@@ -82,7 +82,7 @@ export default function VenueView(){
                         avatar:{url:"", alt:""},
                         banner:{url:"", alt:""}}
                     })
-                  
+                    console.log(venue.name)
                   }
           catch (err) {
           alert(err)
@@ -97,7 +97,7 @@ export default function VenueView(){
 
   if (isLoading) return <p>Loading venue...</p>;
   if (!venue) return <p> No venue data</p>;
-  console.log(venue)
+
   return(
     <div>
       <h1>{venue.name}</h1>

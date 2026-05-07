@@ -24,12 +24,12 @@ function App() {
         <Route index element={<ProfileView/>} />
         <Route path="edit" element={<ProfileEdit/>}/>
       </Route>
-      <Route path="/venues" element={<VenuesAll/>}>
-      <Route path="create" element={<VenueCreate/>}/>
-        <Route path=":id" element={<VenuesLayout/>}>
+      <Route path="/venues" element={<VenuesAll/>}/>
+      <Route path="/venues/create" element={<VenueCreate/>}/>
+        <Route path="/venues/:id" element={<VenuesLayout/>}>
           <Route index element={<VenueView/>}/>
           <Route path="edit" element={<VenueEdit/>}/>
-        </Route>
+        
       </Route>
     </Routes>
    </div>
