@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import getVenue from "@/api/venues/getVenue";
-
 import type { image, userData, venueDataOwner } from "@/interfacesAndTypes/types";
+import BookingCreate from "@/features/bookings/BookingCreate";
 export default function VenueView(){
   const {id} = useParams<{id:string}>();
   
@@ -31,7 +31,8 @@ export default function VenueView(){
       lat:0,
       lng:0
     },
-    owner:{} as userData
+    owner:{} as userData,
+    
   });
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false)
@@ -80,9 +81,10 @@ export default function VenueView(){
                         venueManager:false,
                         bio:"",
                         avatar:{url:"", alt:""},
-                        banner:{url:"", alt:""}}
+                        banner:{url:"", alt:""}},
+                      
+
                     })
-                    console.log(venue.name)
                   }
           catch (err) {
           alert(err)
@@ -94,7 +96,8 @@ export default function VenueView(){
         loadVenue();
         
     }, [id, navigate]);
-
+  const venueId = venue.id;
+  const maxGuests = venue.maxGuests;
   if (isLoading) return <p>Loading venue...</p>;
   if (!venue) return <p> No venue data</p>;
 
@@ -103,6 +106,7 @@ export default function VenueView(){
       <h1>{venue.name}</h1>
      <p>{venue.description}</p>
      <p>{venue.location.lat}</p>
+    <BookingCreate venueId={venueId} maxGuests={maxGuests}/>
     </div>
   )
 }

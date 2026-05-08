@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 
-//Help from ChatGPT to reset the user object"
+//Help from ChatGPT to reset the venue object"
 const initialVenue: venueDataApi = {
     name: "",
     description: "",
@@ -37,7 +37,7 @@ const initialVenue: venueDataApi = {
 
 function CreateVenue(){
   const navigate = useNavigate();
-const [venue, setVenue] = useState<venueDataApi>({
+  const [venue, setVenue] = useState<venueDataApi>({
   name: "",
   description: "",
   media:[] as image[],
@@ -62,6 +62,7 @@ const [venue, setVenue] = useState<venueDataApi>({
     lng:0
   } 
 });
+
 //ChatGPT rubberducking to media solution
 const initialImage = {url:"", alt:""};
 const [image, setImage] = useState<image>(initialImage);
@@ -109,7 +110,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
   navigate(`/venues/${responseData.data.id}`)
 }
 catch (error){
-  console.log("Could not register user:",error)
+  console.log("Could not create venue:",error)
 }
 finally{
   setIsSubmitting(false)

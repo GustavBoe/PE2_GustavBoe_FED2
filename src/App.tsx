@@ -29,8 +29,8 @@ function App() {
         <Route path="/venues/:id" element={<VenuesLayout/>}>
           <Route index element={<VenueView/>}/>
           <Route path="edit" element={<VenueEdit/>}/>
-        
       </Route>
+      <Route path="/bookings/success/:id"/>
     </Routes>
    </div>
   )

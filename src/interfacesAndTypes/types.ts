@@ -64,14 +64,39 @@ export type venueDataApi = {
   updated: string;
   meta: venueMeta;
   location:venueLocation;
-  
 }
 export type venueDataOwner = venueDataApi & {
   id: string;
   owner:userData;
 }
-
+export type VenueBookingsData = venueDataOwner & {
+  bookings: BookingDataGET;
+}
 export type DeleteResponse = {
   success: boolean;
   status: number;
 };
+export type Customer = {
+  name:string;
+  email:string;
+  bio:string;
+  avatar: image;
+  banner: image;
+}
+
+export type CreateBookingProps = {
+  venueId:string;
+  maxGuests:number;
+}
+export type BookingDataPOST = {
+  venueId:string;
+  dateFrom:string;
+  dateTo:string;
+  guests:number;
+}
+export type BookingDataGET = BookingDataPOST & {
+  id:string;
+  created:string;
+  updated:string;
+  customer: Customer;
+}
