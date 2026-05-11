@@ -1,6 +1,6 @@
 import { HOLIDAZE_URL, API_KEY, accessToken} from "@/const/const";
 
-export default async function deleteVenue(id: string) {
+export default async function deleteBooking(id: string) {
   try{
     const response = await fetch(`${HOLIDAZE_URL}/bookings/${id}`, {
     method: "DELETE",
@@ -18,30 +18,3 @@ export default async function deleteVenue(id: string) {
       } 
 }
 
-/**const handleDelete = async() => {
-        if(!id){
-        alert("Unable to get venue");
-        return null;
-        }
-        try{
-          const response = await deleteVenue(id);
-          if (!response) {
-            alert("Could not delete venue");
-            navigate(`/bookings/${id}/edit`);
-            return;
-          }
-
-          if (response.status === 204) {
-            alert("Venue was deleted");
-            navigate(`/profile/${userName}`);
-          }
-        }
-
-        catch (err) {
-        alert(err) 
-      }
-      
-      finally{
-      setIsLoading(false)  
-      }
-      };*/

@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import getVenue from "@/api/venues/getVenue";
 import type { image, userData, venueDataOwner } from "@/interfacesAndTypes/types";
-import BookingCreate from "@/features/bookings/BookingCreate";
+import { accessToken } from "@/const/const";
+import BookingCreate from "@/features/bookings/booking/BookingCreate";
+
 export default function VenueView(){
   const {id} = useParams<{id:string}>();
   
@@ -106,7 +108,8 @@ export default function VenueView(){
       <h1>{venue.name}</h1>
      <p>{venue.description}</p>
      <p>{venue.location.lat}</p>
-    <BookingCreate venueId={venueId} maxGuests={maxGuests}/>
+     {!accessToken ? null : <BookingCreate venueId={venueId} maxGuests={maxGuests}/>}
+    
     </div>
   )
 }

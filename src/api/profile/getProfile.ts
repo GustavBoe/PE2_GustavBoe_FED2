@@ -3,7 +3,7 @@ import { HOLIDAZE_URL, accessToken, API_KEY } from "@/const/const";
 export default async function getProfile(name:string) {
      try {
         const response = await fetch(
-          `${HOLIDAZE_URL}/profiles/${name}?_venues=true&bookings=true`,
+          `${HOLIDAZE_URL}/profiles/${name}?_venues=true&_bookings=true`,
             {headers: {
               Authorization: `Bearer ${accessToken}`,
               "X-Noroff-API-Key": API_KEY,

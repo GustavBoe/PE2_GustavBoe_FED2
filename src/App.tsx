@@ -12,9 +12,11 @@ import VenuesAll from "./features/venues/VenuesAllView";
 import VenueView from "./features/venues/venue/VenueView"
 import VenueCreate from "./features/venues/venue/VenueCreate";
 import VenueEdit from "./features/venues/venue/VenueEdit";
-import BookingLayout from './features/bookings/BookingLayout';
-import BookingView from './features/bookings/BookingView';
-import BookingEdit from './features/bookings/BookingEdit';
+import BookingLayout from './features/bookings/booking/BookingLayout';
+import BookingView from './features/bookings/booking/BookingView';
+import BookingEdit from './features/bookings/booking/BookingEdit';
+import BookingsAllView from './features/bookings/BookingsAllView';
+import BookingSuccess from './features/bookings/booking/BookingSuccess';
 function App() {
   
   return (
@@ -28,8 +30,14 @@ function App() {
       <Route path="/profile/:name" element= {<ProfileLayout/>}>
         <Route index element={<ProfileView/>} />
         <Route path="edit" element={<ProfileEdit/>}/>
+        <Route path="bookings" element={<BookingsAllView/>}/>
+        <Route path="bookings/:id" element={<BookingLayout/>}>
+          <Route index element={<BookingView/>}/>
+          <Route path="edit" element={<BookingEdit/>}/>
+          
       </Route>
-
+      </Route>
+      <Route path="/bookings/success/:id" element={<BookingSuccess/>}/>
       <Route path="/venues" element={<VenuesAll/>}/>
       <Route path="/venues/create" element={<VenueCreate/>}/>
         <Route path="/venues/:id" element={<VenuesLayout/>}>
@@ -37,13 +45,10 @@ function App() {
           <Route path="edit" element={<VenueEdit/>}/>
       </Route>
 
-      <Route path="/bookings/success/:id"/>
-
-      <Route path="/bookings/:id" element={<BookingLayout/>}>
-        <Route index element={<BookingView/>}/>
-        <Route path="edit" element={<BookingEdit/>}/>
-      </Route>
       
+
+      
+
     </Routes>
    </div>
   )

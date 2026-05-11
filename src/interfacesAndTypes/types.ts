@@ -18,6 +18,10 @@ export type userData = regUserData & {
   banner:image;
   
 }
+export type UserProfileData = userData & {
+  venues: venueDataApi[];
+  bookings: UserProfileBookings[];
+}
 export type getProfileDataProps = {
   name:string;
 }
@@ -94,9 +98,34 @@ export type BookingDataPOST = {
   dateTo:string;
   guests:number;
 }
-export type BookingDataGET = BookingDataPOST & {
+ type BookingDataGET = BookingDataPOST & {
   id:string;
   created:string;
   updated:string;
   customer: Customer;
+  venue: venueDataOwner;
+}
+export type BookingGET = {
+  id:string;
+  dateFrom:string;
+  dateTo:string;
+  guests: number;
+  created:string;
+  updated:string;
+  venue: venueDataOwner;
+  customer:Customer;
+}
+export type BookingDataPUT = {
+  guests:number;
+  dateFrom: string;
+  dateTo:string;
+}
+export type UserProfileBookings = {
+  id:string;
+  dateFrom:string;
+  dateTo:string;
+  guests: number;
+  created:string;
+  updated:string;
+  venue: venueDataApi;
 }

@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import getProfile from "@/api/profile/getProfile";
-import type {userData} from "@/interfacesAndTypes/types";
+import type {UserProfileData} from "@/interfacesAndTypes/types";
 import { accessToken } from "@/const/const";
 
 function ProfileView(){
@@ -9,14 +9,16 @@ function ProfileView(){
   
   
 
-  const [user, setUser] = useState<userData>({
+  const [user, setUser] = useState<UserProfileData>({
     name:"",
     email:"",
     password:"",
     venueManager:false,
     bio:"",
     avatar:{url:"", alt:""},
-    banner:{url:"", alt:""}
+    banner:{url:"", alt:""},
+    venues: [],
+    bookings: []
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +42,7 @@ function ProfileView(){
          
           const profileData = await getProfile(name)
           setUser(profileData.data);
-          console.log(profileData)
+          
         }
         catch (err) {
         alert(err)
@@ -59,6 +61,13 @@ function ProfileView(){
         <div>
           <h1>{user.name}</h1>
           <h2>{user.venueManager ? "Venue Manager" : "User"}</h2>
+
+          <h3>Bookings</h3>
+          <div>
+          <h3>{user.bookings?.[0]?.venue?.name}</h3>
+          <p>At {user.bookings?.[0]?.dateFrom} - {user.bookings?.[0]?.dateTo} </p>
+          <Link to={`bookings/${user.bookings?.[0]?.id}/edit`}>Edit</Link>
+          </div>
         </div>
       )
         

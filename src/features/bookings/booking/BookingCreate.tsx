@@ -13,7 +13,7 @@ const initialBooking = {
   venueId: "",
 }
 
- function BookingCreate({venueId, maxGuests}: CreateBookingProps){
+function BookingCreate({venueId, maxGuests}: CreateBookingProps){
 
 if(!accessToken)return null;
 
