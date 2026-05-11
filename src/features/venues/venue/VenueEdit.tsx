@@ -77,13 +77,13 @@ export default function VenueEdit(){
               pets:venueData.meta.pets
             },
             location:{
-              address:"",
-             city:"",
-             zip:"",
-             country:"",
-             continent:"",
-             lat:0,
-              lng:0
+              address:venueData.location.address,
+             city:venueData.location.city,
+             zip:venueData.location.zip,
+             country:venueData.location.country,
+             continent:venueData.location.continent,
+             lat:venueData.location.lat,
+              lng:venueData.location.lng
             } 
           })
         }
@@ -127,7 +127,7 @@ export default function VenueEdit(){
             throw new Error(errorMessage);
         }
         
-        //navigate(`/venues/${id}`)
+        navigate(`/venues/${id}`)
       }
       catch (error){
         console.log("Could not register user:",error)

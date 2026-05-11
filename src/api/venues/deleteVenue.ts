@@ -11,7 +11,7 @@ export default async function deleteVenue(id: string) {
     },
   })
   return response;
-  
+
       }
       catch (err) {
         alert(err) 
