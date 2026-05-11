@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { addToLocalStorage } from "@/storage/localStorage";
 import { BASE_URL } from "@/const/const";
 import type {logUserData} from "@/interfacesAndTypes/types";
@@ -57,12 +57,11 @@ finally{
   }
 };
 return(
-  
-    <form onSubmit={handleSubmit}>
-      <h2>Log in</h2>
-      <div>
-       
-         <label htmlFor="email">Email:</label>
+    <section className="flex flex-col items-center text-text">
+      <h2 className="font-dm font-medium text-2xl">Log in</h2>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-10">
+      <div className="flex flex-col">
+         <label htmlFor="email" className="font-inter">Email</label>
         <input 
         type="text"
         id="email"
@@ -73,8 +72,11 @@ return(
             }))
           }
           required
+          className=" pl-2 inset-shadow-sm rounded-md text-lg h-10 focus:outline-none focus:ring-2 focus:ring-primary"
         />
-         <label htmlFor="password">Password:</label>
+        </div>
+        <div className="flex flex-col">
+         <label htmlFor="password" className="font-inter">Password</label>
         <input 
         type="text"
         id="password"
@@ -85,14 +87,19 @@ return(
             }))
           }
           required
+          className="pl-2 text-lg inset-shadow-sm rounded-md h-10 focus:outline-none focus:ring-2 focus:ring-primary"
         />
-       
-      </div>
-      <button type="submit" disabled={isSubmitting}>
+       </div>
+      
+      <button type="submit" disabled={isSubmitting} className="border pb-1 pt-1 font-dm text-xl text-white bg-primary rounded-md hover:bg-text mt-5">
         {isSubmitting ? 'Logging in...' : 'Log in'}
       </button>
     </form>
-  
+    <div className="flex flex-col items-center mt-10">
+      <h3>Not a member yet?</h3>
+      <Link to={"/auth/register"} className="underline">Register here</Link>
+    </div>
+  </section>
 )
 }
 export default LoginUser;

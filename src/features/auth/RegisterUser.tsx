@@ -63,7 +63,7 @@ finally{
 };
 return(
     <section className="flex flex-col items-center">
-      <h2 className="self-center font-dm font-medium text-text text-2xl">Register</h2>
+      <h2 className="font-dm font-medium text-text text-2xl">Register</h2>
     <form onSubmit={handleSubmit} className="mx-auto text-text mt-10">
       <div className="flex flex-col gap-5">
       
@@ -79,7 +79,7 @@ return(
             }))
           }
           required
-          className="inset-shadow-sm rounded-md h-10 focus:outline-none focus:ring-2 focus:ring-primary"
+          className="pl-2 text-lg inset-shadow-sm rounded-md h-10 focus:outline-none focus:ring-2 focus:ring-primary"
         />
         </div>
         <div className="flex flex-col">
@@ -94,7 +94,7 @@ return(
             }))
           }
           required
-          className="inset-shadow-sm rounded-md h-10 focus:outline-none focus:ring-2 focus:ring-primary"
+          className="pl-2 text-lg inset-shadow-sm rounded-md h-10 focus:outline-none focus:ring-2 focus:ring-primary"
         />
         </div>
         <div className="flex flex-col">
@@ -109,7 +109,7 @@ return(
             }))
           }
           required
-          className="inset-shadow-sm rounded-md h-10 focus:outline-none focus:ring-2 focus:ring-primary"
+          className="pl-2 text-lg inset-shadow-sm rounded-md h-10 focus:outline-none focus:ring-2 focus:ring-primary"
         />
         </div>
         <div className="flex flex-row items-center gap-4 mt-5 mb-10">
