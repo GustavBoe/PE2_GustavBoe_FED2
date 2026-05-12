@@ -106,8 +106,8 @@ export default function VenueView(){
   return(
     <div>
       <h1>{venue.name}</h1>
-     <p>{venue.description}</p>
-     <p>{venue.location.lat}</p>
+     <p>{venue.description}</p> 
+     <p>{venue.location.lat !== 0 ? venue.location.lat : null}</p>
      {!accessToken ? null : <BookingCreate venueId={venueId} maxGuests={maxGuests}/>}
     
     </div>

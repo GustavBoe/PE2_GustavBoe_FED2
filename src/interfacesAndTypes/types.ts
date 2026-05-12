@@ -87,7 +87,18 @@ export type Customer = {
   avatar: image;
   banner: image;
 }
-
+export type FilterBookedVenue = {
+  id:string;
+  dateFrom:string;
+  dateTo:string;
+  guests:number;
+  created:string;
+  updated:string;
+  customer: Customer;
+}
+export type VenueCheckBookings = venueDataOwner & {
+  bookings: FilterBookedVenue[];
+}
 export type CreateBookingProps = {
   venueId:string;
   maxGuests:number;

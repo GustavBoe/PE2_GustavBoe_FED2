@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import type { BookingDataPOST, CreateBookingProps } from "@/interfacesAndTypes/types";
+import type { BookingDataPOST, CreateBookingProps,image, userData, VenueCheckBookings } from "@/interfacesAndTypes/types";
 import { HOLIDAZE_URL, API_KEY, accessToken } from "@/const/const";
+import getVenue from "@/api/venues/getVenue";
 
 
 const initialBooking = {
@@ -16,7 +17,7 @@ const initialBooking = {
 function BookingCreate({venueId, maxGuests}: CreateBookingProps){
 
 if(!accessToken)return null;
-
+const [isLoading, setIsLoading] = useState(false);
 const [booking, setBooking] = useState<BookingDataPOST>({
   dateFrom: "",
   dateTo:"",
@@ -26,7 +27,110 @@ const [booking, setBooking] = useState<BookingDataPOST>({
 //Calender component from https://refine.dev/blog/react-date-picker/
 const [startDate, setStartDate] = useState<Date | null>(null);
 const [endDate, setEndDate] = useState<Date | null>(null);
-const pastDate = (date:Date) => date >= new Date();
+const [venueBookingFilter, setVenueBookingFilter] = useState<VenueCheckBookings>({
+    id:"",
+    name:"",
+    description: "",
+    media:[] as image[],
+    price:0,
+    maxGuests:0,
+    rating:0,
+    created: "",
+    updated: "",
+    meta: {
+      wifi: false,
+      parking:false,
+      breakfast:false,
+      pets:false
+    },
+    location:{
+      address:"",
+      city:"",
+      zip:"",
+      country:"",
+      continent:"",
+      lat:0,
+      lng:0
+    },
+    owner:{} as userData,
+    bookings:[]
+})
+const [rangeError, setRangeError] = useState("");
+useEffect(()=>{
+  const loadVenue = async () => {
+    setIsLoading(true);
+    try{
+  const venueData = await getVenue(venueId)
+  setVenueBookingFilter(venueData)
+}
+catch (err) {
+        alert(err)
+        
+      } finally {
+        setIsLoading(false);
+      }
+  };
+  loadVenue()
+}, [venueId]);
+
+
+// Adding already booked dates filter, with help from ChatGPT.
+const getGuestsForDate = (date: Date) => {
+  return venueBookingFilter.bookings.reduce((total, booking) => {
+    const from = new Date(booking.dateFrom);
+    const to = new Date(booking.dateTo);
+
+    const overlaps =
+      date >= from &&
+      date < to;
+
+    return overlaps
+      ? total + booking.guests
+      : total;
+  }, 0);
+};
+const isAvailable = (date: Date) => {
+   const today = new Date();
+
+  today.setHours(0, 0, 0, 0);
+
+  const compareDate = new Date(date);
+  compareDate.setHours(0, 0, 0, 0);
+
+  const guestsBooked = getGuestsForDate(date);
+  if (compareDate < today) {
+    return false;
+  }
+  if (booking.guests <= 0) return false;
+
+  
+
+  return (
+    guestsBooked + booking.guests <=
+    venueBookingFilter.maxGuests
+  );
+};
+const isRangeAvailable = (
+  start: Date,
+  end: Date
+) => {
+  const current = new Date(start.getTime());
+
+  while (current <= end) {
+    const bookedGuests = getGuestsForDate(current);
+
+    if (
+      bookedGuests + booking.guests >
+      venueBookingFilter.maxGuests
+    ) {
+      return false;
+    }
+
+    current.setDate(current.getDate() + 1);
+  }
+
+  return true;
+};
 
 const navigate = useNavigate();
 const [isSubmitting, setIsSubmitting] = useState(false);
@@ -68,6 +172,7 @@ finally{
   setIsSubmitting(false)
   }
 };
+if (isLoading) return <p>Loading booking...</p>;
 return(
   <div>
      <form onSubmit={handleSubmit} className="flex flex-col mx-auto max-w-45">
@@ -94,44 +199,65 @@ return(
           required
         />
         
-        <label htmlFor="dateFrom">From</label>
-        <DatePicker
-        selectsStart
-        filterDate={pastDate}
-        selected={startDate}
-        onChange={(date: Date | null) => {
-          setStartDate(date);//** Help from ChatGPT to set booking using DatePicker */
-          setBooking(prev => ({
-            ...prev,
-            dateFrom:date ? date.toISOString() : ""
-          }));
-        }}
+        <label htmlFor="bookingDates">Select dates</label>
+       <DatePicker
+        calendarClassName="hover:pointer"
+        
+        id="bookingDates"
+        selectsRange
         startDate={startDate}
-        //https://stackoverflow.com/questions/68231708/how-to-make-react-datepicker-start-the-days-of-the-week-on-monday
-        calendarStartDay={1}
-        dateFormat={"dd/MM/yy"}
-        />
-
-        { startDate ?
-        <>
-        <label htmlFor="dateTo">To</label>
-        <DatePicker
-        selectsEnd
-        selected={endDate}
-        onChange={(date: Date | null) => {
-          setEndDate(date);
-          setBooking(prev => ({
-            ...prev,
-            dateTo:date ? date.toISOString() : ""
-          }));
-        }}
         endDate={endDate}
-        startDate={startDate}
-        minDate={startDate}
-        calendarStartDay={1}
+        onChange={(dates: [Date | null, Date | null] | null)=> {
+          if (!dates || (dates[0] === null && dates[1] === null)) {
+          setStartDate(null);
+          setEndDate(null);
+        
+          setBooking(prev => ({
+          ...prev,
+          dateFrom: "",
+          dateTo: "",
+        }));
+      
+        setRangeError("");
+        return;
+      }
+        const [start, end] = dates;
+           
+         if (!start) return;
+           
+         if (!end) {
+           setStartDate(start);
+           setEndDate(null);
+           return;
+         }
+       
+         if (!isRangeAvailable(start, end)) {
+          
+           setRangeError("Selected range exceeds guest capacity");
+           return;
+         }
+         setRangeError("");
+         setStartDate(start);
+         setEndDate(end);
+       
+         setBooking(prev => ({
+           ...prev,
+           dateFrom: start.toISOString(),
+           dateTo: end.toISOString(),
+         }));
+       }}
+        filterDate={isAvailable}
         dateFormat={"dd/MM/yy"}
-        />
-        </>: null}
+        calendarStartDay={1}
+        isClearable
+        shouldCloseOnSelect={false}
+        showDisabledMonthNavigation
+/>
+       {rangeError && (
+          <p className="text-alarm">
+          {rangeError}
+          </p>
+        )}
         <button type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Creating booking..." : "Book venue"}
       </button>
