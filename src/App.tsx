@@ -1,6 +1,7 @@
 
 import './App.css'
 import { Routes, Route } from "react-router-dom";
+import Footer from './components/Footer';
 import HomeView from "./features/home";
 import RegisterUser from "./features/auth/RegisterUser";
 import LoginUser from "@/features/auth/LoginUser";
@@ -34,22 +35,19 @@ function App() {
         <Route path="bookings/:id" element={<BookingLayout/>}>
           <Route index element={<BookingView/>}/>
           <Route path="edit" element={<BookingEdit/>}/>
-          
+        </Route>
       </Route>
-      </Route>
+
       <Route path="/bookings/success/:id" element={<BookingSuccess/>}/>
+
       <Route path="/venues" element={<VenuesAll/>}/>
       <Route path="/venues/create" element={<VenueCreate/>}/>
         <Route path="/venues/:id" element={<VenuesLayout/>}>
           <Route index element={<VenueView/>}/>
           <Route path="edit" element={<VenueEdit/>}/>
       </Route>
-
-      
-
-      
-
     </Routes>
+    <Footer/>
    </div>
   )
 }

@@ -5,10 +5,9 @@ import type {UserProfileData} from "@/interfacesAndTypes/types";
 import { accessToken } from "@/const/const";
 
 function ProfileView(){
+  
   const {name} = useParams<{name:string}>();
   
-  
-
   const [user, setUser] = useState<UserProfileData>({
     name:"",
     email:"",
