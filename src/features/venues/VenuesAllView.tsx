@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 
 import type { AllVenuesData } from "@/interfacesAndTypes/types";
 import getAllVenues from "@/api/venues/getAllVenues";
-import { VenueCard } from "@/components/VenueCard";
+
+import SearchBar from "@/components/SearchBar";
 
 export default function VenuesAll(){
   const [venues, setVenues] = useState<AllVenuesData[]>([]);
@@ -30,9 +31,9 @@ export default function VenuesAll(){
 
   return(
     <div>
-    {isLoading ? <p>Loading venues..</p> : venues.map((venue)=>(
-      <VenueCard key={venue.id} {...venue}/>
-    ))}
+      
+    {isLoading ? <p>Loading venues...</p> : <SearchBar allVenues={venues}/>}
+    
     </div>
   )
   

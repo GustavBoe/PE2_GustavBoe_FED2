@@ -1,7 +1,7 @@
 
 import './App.css'
 import { Routes, Route } from "react-router-dom";
-import Footer from './components/Footer';
+import AppLayout from './layout/AppLayout';
 import HomeView from "./features/home";
 import RegisterUser from "./features/auth/RegisterUser";
 import LoginUser from "@/features/auth/LoginUser";
@@ -23,8 +23,8 @@ function App() {
   return (
    <div>
     <Routes>
-      <Route path="/" element={<HomeView/>}/>
-
+      <Route path="/" element={<AppLayout/>}>
+      <Route index element={<HomeView/>}/>
       <Route path="/auth/login" element={<LoginUser/>} />
       <Route path="/auth/register" element={<RegisterUser/>} />
 
@@ -46,8 +46,9 @@ function App() {
           <Route index element={<VenueView/>}/>
           <Route path="edit" element={<VenueEdit/>}/>
       </Route>
+      </Route>
     </Routes>
-    <Footer/>
+    
    </div>
   )
 }

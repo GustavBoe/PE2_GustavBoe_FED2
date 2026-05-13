@@ -140,3 +140,6 @@ export type UserProfileBookings = {
   updated:string;
   venue: venueDataApi;
 }
+export type VenuesAllViewProps = {
+  allVenues: AllVenuesData[]
+}
