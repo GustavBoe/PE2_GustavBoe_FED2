@@ -52,11 +52,11 @@ export default function SearchBar({allVenues}:VenuesAllViewProps){
             
           />
            {processedVenues.length > 0 ? (
-        <ul style={{ color:'green' }}>
+        <li>
           {processedVenues.map((venue) => (
             <VenueCard key={venue.id} {...venue} />
           ))}
-        </ul>
+        </li>
       ) : (
         <p>No venues match your search.</p>
       )}
