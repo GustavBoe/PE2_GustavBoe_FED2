@@ -42,6 +42,9 @@ export type AllVenuesData = {
   meta: venueMeta;
   location:venueLocation;
 }
+export type VenuesWithBookings = AllVenuesData & {
+  bookings?: BookingGET[];
+}
 export type venueMeta = {
   wifi?:boolean;
   parking?:boolean;

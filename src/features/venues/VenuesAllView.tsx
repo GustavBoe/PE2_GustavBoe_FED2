@@ -15,7 +15,7 @@ export default function VenuesAll(){
 
       try{
         const venueData = await getAllVenues();
-        console.log(venueData);
+       
         setVenues(venueData.data ?? []);
       }
       catch(error){

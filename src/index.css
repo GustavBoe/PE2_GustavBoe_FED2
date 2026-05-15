@@ -3,7 +3,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-: "Parkinsans";
+  --font-parkinsans: "Parkinsans";
   --font-dm: "dm-serif";
   --font-inter: "Inter";
   --color-primary: #005455;

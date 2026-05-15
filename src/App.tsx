@@ -2,7 +2,7 @@
 import './App.css'
 import { Routes, Route } from "react-router-dom";
 import AppLayout from './layout/AppLayout';
-import HomeView from "./features/home";
+import HomeView from "./features/HomeView";
 import RegisterUser from "./features/auth/RegisterUser";
 import LoginUser from "@/features/auth/LoginUser";
 import ProfileLayout from "./features/profile/ProfileLayout";
