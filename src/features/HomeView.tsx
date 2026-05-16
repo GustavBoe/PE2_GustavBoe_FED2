@@ -41,23 +41,23 @@ export default function HomeView(){
  if (isLoading) return <p>Holidazing...</p>;
   return(
   <section className="flex flex-col items-center text-text">
-    <div className="relative flex justify-center text-white overflow-hidden h-150 w-full mb-20">
+    <div className="relative flex justify-center text-white overflow-hidden h-165 w-full mb-20">
       <img src="https://i.imghippo.com/files/ohKo6602UDk.jpg" alt="Image" className="w-full h-full object-cover object-center blur-[1px]"/>
       <div className="absolute inset-0 bg-primary/70"></div>
       <div className="flex flex-col text-center items-center absolute bottom-0 h-full">
-      <h1 className="font-dm font-medium text-4xl w-60 mt-15">
+      <h1 className="font-dm font-medium text-4xl md:text-5xl w-60 md:w-100 mt-20 md:mt-25">
         Find the perfect venue for your next event.
       </h1>
-      <p className="font-inter text-lg w-90 mt-15">
+      <p className="font-inter text-lg w-90 mt-25">
         Browse unique spaces, compare options, and book with confidence.
       </p>
-      <Link to={"/venues"} className="mt-25 font-inter font-medium text-lg w-50 bg-CTA py-1 rounded-md">Explore venues</Link>
+      <Link to={"/venues"} className="mt-25 font-inter font-medium text-lg w-50 bg-CTA/80 hover:bg-CTA/90 active:bg-CTA py-1 rounded-md">Explore venues</Link>
       </div>
     </div>
     
     <h2 className="font-dm text-2xl">Popular venues</h2>
 
-    <div className="flex flex-row h-50 w-90 md:w-180 overflow-x-auto snap-x snap-mandatory scroll-smooth">
+    <div className="flex flex-row items-center h-92 w-95 md:w-190 overflow-x-auto snap-x snap-mandatory scroll-smooth">
    {popularVenues.map(venue => (
     <div className="snap-center shrink-0">
     <PopularVenueCard key={venue.id} {...venue} />
