@@ -10,8 +10,8 @@ export default function Header(){
     navigate("/")
   }
   return(
-    <div className="flex flex-row h-20 items-center">
-      <Link to={"/"}><h1 className="text-primary text-4xl font-parkinsans">Holidaze</h1></Link>
+    <div className="flex flex-row h-15 items-center">
+      <Link to={"/"}><h1 className="text-primary text-4xl font-parkinsans ml-5">Holidaze</h1></Link>
       {!userName || !accessToken ? null : <button onClick={handleLogout}>Log out</button>}
 
     </div>
