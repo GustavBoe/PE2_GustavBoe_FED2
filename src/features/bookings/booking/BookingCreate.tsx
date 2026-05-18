@@ -174,18 +174,27 @@ finally{
 };
 if (isLoading) return <p>Loading booking...</p>;
 return(
-  <div>
-     <form onSubmit={handleSubmit} className="flex flex-col mx-auto max-w-45">
-       
-       <label htmlFor="venueId">Venue ID</label>
+  <div className="border border-border rounded-md  pt-5 pb-10 w-[90%] mb-30 font-dm">
+     <form onSubmit={handleSubmit} className="flex flex-col mx-auto items-center">
+       <div className="flex flex-col w-[85%] mx-auto gap-5">
+        <div className="flex flex-col">
+          <label htmlFor="venueId">Venue ID</label>
         <input 
         type="text"
         id="venueId"
         value={venueId}
           readOnly
           required
+        className="
+        border 
+        border-border 
+        rounded-md 
+        w-[80%] 
+        text-bread"
         />
-        <label htmlFor="guests">Number of guests</label>
+        </div>
+       <div className="flex flex-col">
+         <label htmlFor="guests">{`Number of guests, max ${maxGuests}`}</label>
           <input 
         type="number"
         id="guests"
@@ -197,12 +206,17 @@ return(
           }
           placeholder={`Max ${maxGuests} guests`}
           required
+          className="
+          text-center
+          border 
+        border-border 
+          rounded-md 
+          w-[30%]"
         />
-        
-        <label htmlFor="bookingDates">Select dates</label>
+        <div className="flex flex-col">
+        <label htmlFor="bookingDates" className=" mt-5">Select dates</label>
        <DatePicker
         calendarClassName="hover:pointer"
-        
         id="bookingDates"
         selectsRange
         startDate={startDate}
@@ -252,13 +266,20 @@ return(
         isClearable
         shouldCloseOnSelect={false}
         showDisabledMonthNavigation
+        className=" border border-border rounded-md shadow-xs text-primary"
 />
        {rangeError && (
           <p className="text-alarm">
           {rangeError}
           </p>
         )}
-        <button type="submit" disabled={isSubmitting}>
+        </div>
+       </div>
+       </div>
+        
+      
+        
+        <button type="submit" disabled={isSubmitting} className="mt-20 bg-primary hover:bg-primary/85 text-white py-1 px-7 rounded-md shadow-xs">
         {isSubmitting ? "Creating booking..." : "Book venue"}
       </button>
      </form>

@@ -2,9 +2,10 @@
 import type { AllVenuesData } from '@/interfacesAndTypes/types';
 import { Link } from 'react-router-dom';
 import {Wifi, Coffee,PawPrint, CarFront, MapPin, Users, Star} from "lucide-react";
+import { placeholder } from '@/const/const';
 
 export function VenueCard({...venue} : AllVenuesData){
-    const placeholder = "https://i.imghippo.com/files/Mchh9030os.png" 
+    
   const imageUrl =
     venue.media && venue.media.length > 0
       ? venue.media[0].url
