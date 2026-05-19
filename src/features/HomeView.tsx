@@ -38,9 +38,16 @@ export default function HomeView(){
     }
     loadVenues()
   }, [])
- if (isLoading) return <p>Holidazing...</p>;
+
   return(
-  <section className="flex flex-col items-center text-text">
+    <div>
+    {isLoading ? 
+    <div className="flex items-center justify-center min-h-screen">
+    <p className="animate-bounce text-xl text-primary font-medium">
+      Holidazing...
+    </p>
+  </div> : (
+      <section className="flex flex-col items-center text-text">
     <div className="relative flex justify-center text-white overflow-hidden h-165 w-full mb-10">
       <img src="https://i.imghippo.com/files/ohKo6602UDk.jpg" alt="Image" className="w-full h-full object-cover object-center blur-[1px]"/>
       <div className="absolute inset-0 bg-primary/70"></div>
@@ -51,7 +58,7 @@ export default function HomeView(){
       <p className="font-inter text-lg w-90 mt-20">
         Browse unique spaces, compare options, and book with confidence.
       </p>
-      <Link to={"/venues"} className="mt-25 font-inter font-medium text-xl w-50 py-1 px-2 rounded-md bg-CTA/80 hover:bg-CTA/90 active:bg-CTA ">Explore venues</Link>
+      <Link to={"/venues"} className="mt-25 font-inter font-medium text-xl w-50 py-1 px-2 rounded-md bg-CTA/95 hover:bg-CTA/90 active:bg-CTA ">Explore venues</Link>
       </div>
     </div>
     
@@ -77,6 +84,7 @@ export default function HomeView(){
     : null
   }
   </section>
-   
+   )}
+  </div>
   )
 }

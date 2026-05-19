@@ -30,6 +30,7 @@ function App() {
 
       <Route path="/profile/:name" element= {<ProfileLayout/>}>
         <Route index element={<ProfileView/>} />
+        {/* <Route path="venues" element={ProfileVenues}/>*/}
         <Route path="edit" element={<ProfileEdit/>}/>
         <Route path="bookings" element={<BookingsAllView/>}/>
         <Route path="bookings/:id" element={<BookingLayout/>}>

@@ -30,10 +30,16 @@ export default function VenuesAll(){
   }, [])
 
   return(
-    <div>
+    <div className="flex flex-col items-center ">
       
-    {isLoading ? <p>Loading venues...</p> : <SearchBar allVenues={venues}/>}
-    
+    {isLoading ? 
+    <div className="flex items-center justify-center min-h-screen">
+    <p className="animate-bounce text-xl text-primary font-medium">
+      Holidazing...
+    </p>
+  </div>
+  :
+   <SearchBar allVenues={venues}/>}
     </div>
   )
   

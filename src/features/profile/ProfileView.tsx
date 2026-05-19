@@ -53,7 +53,11 @@ function ProfileView(){
       loadProfile();
 
   }, [name, navigate]);
-  if (isLoading) return <p>Loading profile...</p>;
+  if (isLoading) return (<div className="flex items-center justify-center min-h-screen">
+    <p className="animate-bounce text-xl text-primary font-medium">
+      Holidazing...
+    </p>
+  </div>);;
   if (!user) return <p> No profile data</p>;
   
       return(
