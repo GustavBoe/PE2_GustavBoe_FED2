@@ -26,7 +26,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   setIsSubmitting(true);
   try{
-    const response = await fetch(`${BASE_URL}/auth/login`, {
+    const response = await fetch(`${BASE_URL}/auth/login?_holidaze=true`, {
       method: "POST",
       headers:{
         "Content-Type": "application/json",
@@ -43,6 +43,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     addToLocalStorage("userName", userName);
     addToLocalStorage("venueManager", venueManager)
     addToLocalStorage("userAvatar", userAvatar);
+    console.log(venueManager)
     if(!response.ok){
       const errorMessage = 
       responseData.errors?.[0]?.message ||

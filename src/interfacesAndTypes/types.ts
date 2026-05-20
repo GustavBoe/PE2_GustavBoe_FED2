@@ -19,8 +19,8 @@ export type userData = regUserData & {
   
 }
 export type UserProfileData = userData & {
-  venues: venueDataApi[];
-  bookings: UserProfileBookings[];
+  venues: ProfileVenues [];
+  bookings: ProfileVenueBookings[];
 }
 export type getProfileDataProps = {
   name:string;
@@ -71,6 +71,30 @@ export type venueDataApi = {
   updated: string;
   meta: venueMeta;
   location:venueLocation;
+}
+export type ProfileVenues = {
+  id:string;
+  name: string;
+  description: string;
+  media?:image[];
+  price:number;
+  maxGuests:number;
+  rating?:number;
+  created: string;
+  updated: string;
+  meta: venueMeta;
+  location:venueLocation;
+
+}
+export type ProfileVenueBookings = {
+  id:string;
+  dateFrom:string;
+  dateTo:string;
+  guests:number;
+  created:string;
+  updated:string;
+  customer: Customer;
+  venue: ProfileVenues;
 }
 export type venueDataOwner = venueDataApi & {
   id: string;

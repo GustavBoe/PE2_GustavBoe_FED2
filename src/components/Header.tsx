@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link} from "react-router-dom"
 import {userName, accessToken, venueManager, userAvatar, placeholder} from "@/const/const"
 import { Menu, X } from "lucide-react";
@@ -6,16 +6,24 @@ import { Menu, X } from "lucide-react";
 
 export default function Header(){
   const [isOpen, setIsOpen] = useState(false)
-  /*const navigate = useNavigate();*/
+  
   const isLoggedIn = ! !accessToken;
-  /*const handleLogout = () => {
-    localStorage.clear();
-    navigate("/")
-  }*/
-  console.log(isLoggedIn)
+  /*Hiding menu when clicking outside, gotten from google AI in google search and converted to typescript using ChatGPT */
+  const wrapperRef = useRef<HTMLElement | null>(null);;
+  useEffect(() => {
+  function handleClickOutside() {
+    setIsOpen(false);
+  }
+
+  document.addEventListener("click", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("click", handleClickOutside);
+  };
+}, []);
   return(
-   <nav className="flex flex-row items-center relative md:flex md:justify-between  h-15 border-b border-border text-primary">
-    <div className="flex items-center justify-between px-7 w-full">
+   <nav ref={wrapperRef} className="flex flex-row items-center relative md:flex md:justify-between  h-15 border-b border-border text-primary">
+    <div  className="flex items-center justify-between px-7 w-full">
     <Link to={"/"} className="font-parkinsans text-3xl text-primary">
      Holidaze
     </Link>
@@ -58,27 +66,32 @@ export default function Header(){
       }
 
     </div>
-    <button className="md:hidden flex flex-col gap-2 pr-7" onClick={()=>setIsOpen(!isOpen)}>{!isOpen ? <Menu size={28}/> : <X size={28}/> }</button>
-   </div>
+    
+    <button className="md:hidden flex flex-col hover:cursor-pointer" onClick={(e) => {
+    e.stopPropagation();
+    setIsOpen(prev => !prev);
+  }}>{!isOpen ? <Menu size={28}/> : <X size={28}/> }</button>
+   
    {isOpen && (
-    <div className="md:hidden flex flex-col items-center absolute top-full gap-5 left-0 w-full z-50 bg-white border-t border-border">
+    <div onClick={(e) => e.stopPropagation()}
+  className="md:hidden flex flex-col items-center absolute top-full gap-5 left-0 w-full z-50 bg-white border-t border-border hover:cursor-pointer">
       {!isLoggedIn ? ( 
       <div className="flex flex-col items-center text-center w-full">
-        <Link to={"/"} className="w-full border-b border-border py-2" onClick={()=>setIsOpen(!isOpen)}>Home</Link> 
-      <Link to={"/venues"} className="w-full border-b border-border py-2"onClick={()=>setIsOpen(!isOpen)}>Venues</Link> 
-      <Link to={"/auth/register"} className="w-full border-b border-border py-2" onClick={()=>setIsOpen(!isOpen)}>Register</Link> 
-      <Link to={"/auth/login"} className="w-full border-b border-border py-2" onClick={()=>setIsOpen(!isOpen)}>Login</Link>
+        <Link to={"/"} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}>Home</Link> 
+      <Link to={"/venues"} className="w-full border-b border-border py-2"onClick={() => setIsOpen(prev => !prev)}>Venues</Link> 
+      <Link to={"/auth/register"} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}>Register</Link> 
+      <Link to={"/auth/login"} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}>Login</Link>
       </div>
       )
       : 
       venueManager ? 
        (<div className="flex flex-col items-center text-center w-full">
-        <Link to={"/"} className="w-full border-b border-border py-2" onClick={()=>setIsOpen(!isOpen)}>Home</Link> 
-        <Link to={"/venues"} className="w-full border-b border-border py-2" onClick={()=>setIsOpen(!isOpen)}>All Venues</Link> 
-        <Link to={`/profile/${userName}/venues`} className="w-full border-b border-border py-2" onClick={()=>setIsOpen(!isOpen)}> My Venues</Link>
-        <Link to={`/profile/${userName}/bookings`} className="w-full border-b border-border py-2" onClick={()=>setIsOpen(!isOpen)}> My bookings</Link>
+        <Link to={"/"} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}>Home</Link> 
+        <Link to={"/venues"} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}>All Venues</Link> 
+        <Link to={`/profile/${userName}/venues`} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}> My Venues</Link>
+        <Link to={`/profile/${userName}/bookings`} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}> My bookings</Link>
         <div className="flex flex-row items-center gap-4 py-2">
-        <Link to={`/profile/${userName}`} onClick={()=>setIsOpen(!isOpen)}>{userName} </Link>
+        <Link to={`/profile/${userName}`} onClick={() => setIsOpen(prev => !prev)}>{userName} </Link>
         <div className="rounded-full border-2 border-primary overflow-clip">
          <img src={userAvatar || placeholder}  alt="profile image" className="w-10 h-10 object-cover"/>
         </div>
@@ -87,11 +100,11 @@ export default function Header(){
         </div> ) 
       : 
       (<>
-      <Link to={"/"} className="w-full border-b border-border py-2" onClick={()=>setIsOpen(!isOpen)}>Home</Link> 
-        <Link to={"/venues"} className="w-full border-b border-border py-2" onClick={()=>setIsOpen(!isOpen)}> All Venues</Link> 
-         <Link to={`/profile/${userName}/bookings`} className="w-full border-b border-border py-2" onClick={()=>setIsOpen(!isOpen)}> My bookings</Link> 
+      <Link to={"/"} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}>Home</Link> 
+        <Link to={"/venues"} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}> All Venues</Link> 
+         <Link to={`/profile/${userName}/bookings`} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}> My bookings</Link> 
          <div className="flex flex-row items-center gap-4 py-2">
-         <Link to={`/profile/${userName}`} onClick={()=>setIsOpen(!isOpen)}>{userName} </Link>
+         <Link to={`/profile/${userName}`} onClick={() => setIsOpen(prev => !prev)}>{userName} </Link>
          <div className="rounded-full border-2 border-primary overflow-clip">
           <img src={userAvatar || placeholder}  alt="profile image" className="w-10 h-10 object-cover"/>
          </div>
@@ -101,6 +114,9 @@ export default function Header(){
 
     </div>
    )}
+   </div>
+   
    </nav>
+   
   )
 }
