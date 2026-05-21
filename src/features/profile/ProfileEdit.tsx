@@ -128,7 +128,7 @@ const initialUser: userData = {
       }
     };
     return(
-      <section className="border w-full h-full  md:bg-primary flex flex-col items-center text-text">
+      <section className=" w-full h-full  md:bg-primary flex flex-col items-center text-text">
         <div className="flex flex-col items-center h-full w-[90%] md:w-[80%] mt-10 md:mt-0 pt-10 pb-15  mb-10 md:mb-0 border border-border bg-white rounded-md md:rounded-none drop-shadow-lg md:drop-shadow-none">
         <form onSubmit={handleSubmit} className="flex flex-col items-center  gap-10 h-130 justify-around bg-white font-inter">
           <h2 className="font-dm font-medium text-2xl">Edit profile</h2>

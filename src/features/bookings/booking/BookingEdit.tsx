@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import type { BookingDataPUT} from "@/interfacesAndTypes/types";
+import type { BookingDataPUT, BookingProps} from "@/interfacesAndTypes/types";
 import { HOLIDAZE_URL, API_KEY, accessToken, userName } from "@/const/const";
 import deleteBooking from "@/api/bookings/deleteBooking";
 import getBooking from "@/api/bookings/getBooking";
+import { Minus } from "lucide-react";
 
 
-export default function BookingEdit(){
+export default function BookingEdit({maxGuests}:BookingProps){
 
 if(!accessToken)return null;
 
@@ -18,6 +19,7 @@ const [booking, setBooking] = useState<BookingDataPUT>({
   guests:0,
   dateFrom: "",
   dateTo:"",
+  
 })
 
 //Calender component from https://refine.dev/blog/react-date-picker/
@@ -50,7 +52,8 @@ useEffect(()=>{
           setBooking({
             guests: bookingData.guests,
             dateFrom: bookingData.dateFrom,
-            dateTo:bookingData.dateTo
+            dateTo:bookingData.dateTo,
+            
           });
           //Help from ChatGPT on adding value from API to calendar
           setStartDate(new Date(bookingData.dateFrom));
@@ -108,10 +111,13 @@ finally{
   }
 };
 const handleDelete = async() => {
+    
         if(!id){
         alert("Unable to get venue");
         return null;
         }
+        confirm("Are you sure you want to cancel your booking?")
+        if(!confirm) return
         try{
           const response = await deleteBooking(id);
           if (!response) {
@@ -121,7 +127,7 @@ const handleDelete = async() => {
           }
 
           if (response.status === 204) {
-            alert("Venue was deleted");
+            alert("Booking was canceled");
             navigate(`/profile/${userName}`);
           }
         }
@@ -135,25 +141,28 @@ const handleDelete = async() => {
       }
       };
 return(
-  <div>
-     <form onSubmit={handleSubmit} className="flex flex-col mx-auto max-w-45">
-       
-      
-        <label htmlFor="guests">Number of guests</label>
+  <section className="w-full md:w-200 h-fit flex flex-col items-center justify-between text-text mb-10">
+  <div className="flex flex-col items-center w-80 md:w-[80%] border border-border bg-white rounded-md drop-shadow-lg">
+     <form onSubmit={handleSubmit} className="flex flex-col items-center bg-white font-inter pt-2 h-75 gap-5">
+         <div className="flex flex-col items-center gap-2">
+          <label htmlFor="guests" className="font-medium">Number of guests</label>
           <input 
         type="number"
         id="guests"
+        max={maxGuests}
         value={booking.guests === 0 ? "" : booking.guests}
         onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
           setBooking(prev => ({...prev,
              guests: Number(e.target.value),
             }))
           }
-          
-          
+        className=" text-center w-15 pl-3 inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
+
         />
-        
-        <label htmlFor="dateFrom">From</label>
+        </div>
+        <div className="flex flex-row items-center gap-1">
+          <div className="flex flex-col items-center">
+        <label htmlFor="dateFrom" className="font-medium">From</label>
         <DatePicker
         selectsStart
         filterDate={pastDate}
@@ -172,11 +181,14 @@ return(
         calendarStartDay={1}
         dateFormat={"dd/MM/yy"}
         id="dateFrom"
+        className="text-center w-20 inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
         />
-
+      </div>
+        <Minus size={24} className="mt-5"/>
+      <div className="flex flex-col items-center">
         { startDate ?
         <>
-        <label htmlFor="dateTo">To</label>
+        <label htmlFor="dateTo" className="font-medium">To</label>
         <DatePicker
         selectsEnd
         selected={endDate}
@@ -193,13 +205,22 @@ return(
         calendarStartDay={1}
         dateFormat={"dd/MM/yy"}
         id="dateTo"
+        className="text-center w-20 inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
         />
+        
         </>: null}
-        <button type="submit" disabled={isSubmitting}>
+        </div>
+        </div>
+        <div className="flex flex-col gap-5">
+          <button type="submit" disabled={isSubmitting} className="px-7 py-2 border border-primary text-primary rounded-md hover:bg-primary hover:text-white">
         {isSubmitting ? "Saving changes..." : "Save changes"}
       </button>
+       <button type="button" onClick={handleDelete} className="px-5 py-1 border border-alarm text-alarm rounded-md hover:bg-alarm hover:text-white">Cancel booking</button>
+        </div>
+        
      </form>
-     <button type="button" onClick={handleDelete} >Cancel booking</button>
+    
   </div>
+  </section>
 )
 }

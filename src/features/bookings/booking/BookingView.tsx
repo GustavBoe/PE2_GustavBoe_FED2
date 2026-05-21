@@ -68,7 +68,7 @@ export default function BookingView(){
   const difference = Math.abs(dateTo.getTime() - dateFrom.getTime());
   const duration =  Math.ceil(difference / (1000 * 60 * 60 * 24));;
   return(
-    <div className="h-230 w-90 md:w-200 mt-10 mb-25 flex flex-col items-center text-text">
+    <div className="h-fit w-90 md:w-200 mt-10 mb-25 flex flex-col items-center text-text">
       
       <div className="flex flex-col gap-5 items-center border border-border mt-5 shadow-md rounded-md w-full h-full">
         
@@ -101,11 +101,11 @@ export default function BookingView(){
             </div>
           
         <div>
-          {showEdit ? <BookingEdit/> : null}
+          {showEdit ? <BookingEdit maxGuests={booking.venue.maxGuests}/> : null}
         </div>
       </div>
       
-     {/* <BookingEdit/> */}
+     
     </div>
   )
 

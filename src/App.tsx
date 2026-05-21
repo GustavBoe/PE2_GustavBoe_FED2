@@ -15,7 +15,7 @@ import VenueCreate from "./features/venues/venue/VenueCreate";
 import VenueEdit from "./features/venues/venue/VenueEdit";
 import BookingLayout from './features/bookings/booking/BookingLayout';
 import BookingView from './features/bookings/booking/BookingView';
-import BookingEdit from './features/bookings/booking/BookingEdit';
+
 import BookingsAllView from './features/bookings/BookingsAllView';
 import BookingSuccess from './features/bookings/booking/BookingSuccess';
 function App() {
@@ -35,7 +35,7 @@ function App() {
         <Route path="bookings" element={<BookingsAllView/>}/>
         <Route path="bookings/:id" element={<BookingLayout/>}>
           <Route index element={<BookingView/>}/>
-          <Route path="edit" element={<BookingEdit/>}/>
+          
         </Route>
       </Route>
 

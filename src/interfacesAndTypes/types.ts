@@ -170,3 +170,6 @@ export type UserProfileBookings = {
 export type VenuesAllViewProps = {
   allVenues: AllVenuesData[]
 }
+export type BookingProps = {
+  maxGuests:number;
+}
