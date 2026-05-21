@@ -67,7 +67,7 @@ useEffect(()=>{
       }
       loadBooking();
 }, [id, navigate]);
-if(isLoading) return <p>Loading booking..</p>
+if(isLoading) return <p className="animate-bounce font-parkinsans">Holidazing...</p>
 if(!booking){
    alert("Unable to fetch booking data, returning to home");
         navigate("/")
@@ -196,7 +196,7 @@ return(
         />
         </>: null}
         <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Creating booking..." : "Book venue"}
+        {isSubmitting ? "Saving changes..." : "Save changes"}
       </button>
      </form>
      <button type="button" onClick={handleDelete} >Cancel booking</button>

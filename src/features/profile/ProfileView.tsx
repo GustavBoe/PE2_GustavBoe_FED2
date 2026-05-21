@@ -78,12 +78,12 @@ function ProfileView(){
             <img src={user.banner.url} alt={user.banner.alt} className="object-cover"/>
           </div>
         <div className="max-w-200 mx-auto flex flex-col items-center text-text text-xs font-inter">
-          
+          <div className=" w-full flex flex-col items-center">
           <div className="flex flex-row items-center justify-around w-[90%] h-20 border-b border-x border-border rounded-b-md shadow-sm font-inter">
           <div className="w-12 h-12 rounded-full overflow-clip">
             <img src={user.avatar.url || placeholder}  alt="profile image" className="w-12 h-12 object-cover"/>
           </div>
-          <div>
+          <div className="font-medium">
             <p>{user.name}</p>
             <p>{user.email}</p>
           </div>
@@ -92,7 +92,12 @@ function ProfileView(){
           
           {isOwner ? <Link to={"edit"}className="border border-border rounded-sm px-2 hover:bg-primary/50 hover:text-white">Edit</Link> : null}
           </div>
-
+          <div className="border-b border-x border-border rounded-b-md shadow-sm pt-2 pb-2 w-[70%] h-fit">
+            <p className="text-[14px] pl-2 font-bold">Bio</p>
+           <p className=" pl-2 pr-2 wrap-break-word">{user.bio}</p>
+          </div>
+         
+          </div>
 
           <div className="mt-10 flex flex-col w-full items-center">
             {!isOwner ? 
@@ -107,7 +112,7 @@ function ProfileView(){
             isOwner && venueManager ? 
             (<div className="flex flex-row w-[90%] justify-around">
               <button 
-             className={activeTab === "venues" ? "w-full border-y border-r rounded-l-md h-10 border-border bg-border px-2 cursor-pointer" : "w-full rounded-l-md border-y h-10 border-border px-2 cursor-pointer" } 
+             className={activeTab === "venues" ? "w-full border rounded-l-md h-10 border-border bg-border px-2 cursor-pointer" : "w-full rounded-l-md border h-10 border-border px-2 cursor-pointer" } 
                 onClick={()=>{setActiveTab("venues")}}
                 >Venues</button>
               
@@ -118,7 +123,7 @@ function ProfileView(){
                 > Upcoming bookings</button>
               
               <button 
-                className={activeTab === "bookings" ? "w-full rounded-r-md border-y h-10 border-border bg-border px-2 cursor-pointer" : "w-full rounded-r-md border-y border-l h-10 border-border px-2 cursor-pointer" }
+                className={activeTab === "bookings" ? "w-full rounded-r-md border-y border-r h-10 border-border bg-border px-2 cursor-pointer" : "w-full rounded-r-md border h-10 border-border px-2 cursor-pointer" }
                  onClick={()=>{setActiveTab("bookings")}}
                 >My bookings</button>
               </div>)
@@ -133,7 +138,7 @@ function ProfileView(){
           <div className="h-full mt-5 flex flex-col">
            {activeTab === "venues" ? (venues.length > 0 ? (
                 <div className="flex flex-col items-center  py-2 border border-border rounded-md shadow">
-                    <h1 className="font-dm text-2xl">Your venues</h1>
+                    <h1 className="font-dm text-2xl">My venues</h1>
                      <Link to={"/venues/create"} className="px-4 py-2  mt-5 border border-border drop-shadow-sm font-medium rounded-sm hover:bg-border active:bg-bread text-text">Add venue +</Link>
                    <div className='md:grid md:grid-cols-2 overflow-auto h-110 md:h-auto'>
                      {venues.map((venue) => (
@@ -177,14 +182,14 @@ function ProfileView(){
                    </div>
                  ) : (
                   <div className="flex flex-col text-center mt-5 mb-25 justify-around h-25">
-                    <p className="mt-5 text-bread">No venues to show</p>
-                  <Link to={"/venues/create"} className="px-4 py-2 border border-border drop-shadow-sm font-medium rounded-sm hover:bg-border active:bg-bread">Create venue +</Link>
+                    <p className="mt-5 text-bread">No bookings to show</p>
+                  <Link to={"/venues"} className="px-4 py-2 border border-border drop-shadow-sm font-medium rounded-sm hover:bg-border active:bg-bread">Book a venue</Link>
                   </div>
                    )
                  ) : null}
             
           </div>
-          <button onClick={handleLogout} className="bg-alarm hover:bg-alarm/85 active:bg-alarm px-20 py-2 mt-30 mb-0 text-white font-inter rounded-md">Log out</button>
+          <button onClick={handleLogout} className="bg-alarm hover:bg-alarm/85 active:bg-alarm px-20 py-2 mt-30 mb-25 text-white font-inter rounded-md">Log out</button>
           </>
           : 
           null}
