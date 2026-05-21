@@ -128,11 +128,12 @@ const initialUser: userData = {
       }
     };
     return(
-        <form onSubmit={handleSubmit}>
-          <h2>Edit profile</h2>
-          <div>
-           <p>{oldUser.name}</p>
-        <label htmlFor="bio">Bio:</label>
+      <section className="border w-full h-full  md:bg-primary flex flex-col items-center text-text">
+        <div className="flex flex-col items-center h-full w-[90%] md:w-[80%] mt-10 md:mt-0 pt-10 pb-15  mb-10 md:mb-0 border border-border bg-white rounded-md md:rounded-none drop-shadow-lg md:drop-shadow-none">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center  gap-10 h-130 justify-around bg-white font-inter">
+          <h2 className="font-dm font-medium text-2xl">Edit profile</h2>
+        <div className="flex flex-col w-[70%]">
+        <label htmlFor="bio" className="pl-2">Bio</label>
         <textarea 
         id="bio"
         value={user.bio}
@@ -142,37 +143,49 @@ const initialUser: userData = {
              bio: e.target.value
             }))
           }
+          rows={5}
+          
+          className=" resize-none pl-2 text-xs inset-shadow-sm rounded-md border border-primary/25 h-full focus:outline-none focus:ring-2 focus:ring-primary"
         />
-
-        <label htmlFor="avatarUrl">Avatar url:</label>
+      </div>
+      <div className="flex flex-col">
+        <h1 className="pl-2">Profile picture</h1>
+      <div className="flex flex-row gap-2">
         <input 
         type="text"
         id="avatarUrl"
         value={user.avatar?.url}
-        placeholder={oldUser.avatar?.url}
+        placeholder="Image source"
         onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
           setUser(prev => ({...prev, avatar: {...prev.avatar,
              url: e.target.value
         }
       }))
           }
+          className="pl-2 text-xs inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
           
         />
-        <label htmlFor="avatarAlt">Avatar alt:</label>
+        
         <input 
         type="text"
         id="avatarAlt"
         value={user.avatar?.alt}
-        placeholder={oldUser.avatar?.alt}
+        placeholder={oldUser.avatar.alt ? `${oldUser.avatar?.alt}` : "Description"}
         onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
           setUser(prev => ({...prev, avatar: {...prev.avatar,
              alt: e.target.value
         }
       }))
           }
-          
+          className="pl-2 text-xs inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
         />
-        <label htmlFor="bannerUrl">Banner url:</label>
+        </div>
+        </div>
+
+        <div className="flex flex-col">
+          <h1 className="text-start pl-2">Banner image</h1>
+          <div className="flex flex-row gap-2">
+         
         <input 
         type="text"
         id="bannerUrl"
@@ -184,10 +197,26 @@ const initialUser: userData = {
         }
       }))
           }
-          
+        className="pl-2 text-xs inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
         />
+        <input 
+        type="text"
+        id="bannerAlt"
+        value={user.banner?.alt}
+        placeholder="Description"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
+          setUser(prev => ({...prev, banner: {...prev.banner,
+             alt: e.target.value
+        }
+      }))
+          }
+          className="pl-2 text-xs inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+        </div>
+        </div>
         
-        <label htmlFor="venueManager">I want to be a venue manager</label>
+        <div className="flex flex-row gap-2 items-center">
+        <label htmlFor="venueManager" className="text-sm">I wish to be a venue manager</label>
         <input 
         type="checkbox"
         id="venueManager"
@@ -198,15 +227,14 @@ const initialUser: userData = {
             venueManager:e.target.checked
           }))
         }/>
-        
-        
-       
           </div>
-          <button type="submit" disabled={isSubmitting}>
+          <button type="submit" disabled={isSubmitting} className="px-7 py-2 border border-primary text-primary rounded-md hover:bg-primary hover:text-white">
             {isSubmitting ? 'Saving changes..' : 'Save changes'}
           </button>
         </form>
+      </div>
       
+      </section>
     )
 }
 export default ProfileEdit;
