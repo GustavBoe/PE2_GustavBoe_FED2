@@ -57,16 +57,16 @@ export type venueLocation = {
   zip?: string; 
   country?: string; 
   continent?: string; 
-  lat?: number; 
-  lng?: number;
+  lat?: number | ""; 
+  lng?: number | "";
 }
 export type venueDataApi = {
   name: string;
   description: string;
   media?:image[];
-  price:number;
-  maxGuests:number;
-  rating?:number;
+  price:number | "";
+  maxGuests:number | "";
+  rating?:number | "";
   created: string;
   updated: string;
   meta: venueMeta;
