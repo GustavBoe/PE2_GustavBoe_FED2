@@ -4,7 +4,9 @@ import getVenue from "@/api/venues/getVenue";
 import type { image, userData, venueDataOwner } from "@/interfacesAndTypes/types";
 import { accessToken,userName, placeholder, avatarFailsafe } from "@/const/const";
 import BookingCreate from "@/features/bookings/booking/BookingCreate";
+import BookingCreateGuest from "@/features/bookings/booking/BookingCreateGuest"
 import { Users, Star, Wifi, PawPrint, CarFront, Coffee} from "lucide-react";
+
 
 export default function VenueView(){
   const {id} = useParams<{id:string}>();
@@ -125,7 +127,7 @@ export default function VenueView(){
   if (!venue) return <p> No venue data</p>;
 
   return(
-    <div className="flex flex-col items-center mx-auto max-w-[75%] mt-10 md:border-x md:border-x-border px-2 md:px-20  text-text">
+    <div className="flex flex-col items-center mx-auto max-w-[75%] min-h-screen mb-15 mt-10 md:border-x md:border-x-border px-2 md:px-20  text-text">
       <h1 className="font-dm font-medium text-3xl text-center mb-2">{venue.name}</h1>
       {/* Help from chatGPT to style images in ul*/}
       <div className="w-[95%] overflow-hidden">
@@ -229,15 +231,16 @@ export default function VenueView(){
   </div>
 </div>
     <div className="w-full mt-15 flex flex-col gap-2 items-center">
-      <h2 className="font-dm font-semibold text-xl pl-5">Place booking</h2>
-     {accessToken && !isOwner ? <BookingCreate venueId={venueId} maxGuests={maxGuests}/> 
-     : <Link to={"/auth/login"}>
-     <p className="mt-15 text-lg px-5 py-2 border-2 border-border rounded-md shadow-xs hover:bg-primary hover:text-white">Log in to book this venue!</p>
-     </Link> 
-     }
+      
+     { accessToken && !isOwner ?( <>
+     <h2 className="font-dm font-semibold text-xl pl-5">Place booking</h2>
+     <BookingCreate venueId={venueId} maxGuests={maxGuests}/> </>)
+     : isOwner ? (<><Link to={`/venues/{venueId}/edit`}><button className="mt-5 py-2 px-7 rounded-md bg-primary text-white font-inter hover:bg-primary/75  active:bg-primary ">Edit venue</button></Link></>):
+    <BookingCreateGuest venueId={venueId} maxGuests={maxGuests}/>
+    } 
     </div>
-    {isOwner ? <Link to={`/venues/{venueId}/edit`}><button className="mt-5 py-2 px-4 rounded-md bg-primary text-white font-inter hover:bg-primary/75  active:bg-primary ">Edit venue</button></Link>: null
-    }
+     
+    
 
     </div>
   )

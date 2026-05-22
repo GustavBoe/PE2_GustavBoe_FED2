@@ -3,20 +3,15 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import type { BookingDataPOST, CreateBookingProps,image, userData, VenueCheckBookings } from "@/interfacesAndTypes/types";
-import { HOLIDAZE_URL, API_KEY, accessToken } from "@/const/const";
+import { accessToken } from "@/const/const";
 import getVenue from "@/api/venues/getVenue";
 
 
-const initialBooking = {
-  dateFrom: "",
-  dateTo:"",
-  guests:0,
-  venueId: "",
-}
 
-function BookingCreate({venueId, maxGuests}: CreateBookingProps){
 
-if(!accessToken)return null;
+function BookingCreateGuest({venueId, maxGuests}: CreateBookingProps){
+
+
 const [isLoading, setIsLoading] = useState(false);
 const [booking, setBooking] = useState<BookingDataPOST>({
   dateFrom: "",
@@ -143,30 +138,10 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     if(!accessToken){
       navigate(`/auth/login`)
     }
-    const payload = {
-      ...booking,
-      venueId
-    }
-    const response = await fetch(`${HOLIDAZE_URL}/bookings`, {
-      method: "POST",
-      headers:{
-        "Content-Type": "application/json",
-        "X-Noroff-API-Key": API_KEY,
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(payload)
-    });
-    const responseData = await response.json()
     
-    if(!response.ok){
-      const errorMessage = 
-      responseData.errors?.[0]?.message ||
-       `Error: ${response.status} ${response.statusText}`;
-      throw new Error(errorMessage);
-  }
   
-  setBooking(initialBooking)
-  navigate(`/bookings/success/${responseData.data.id}`)
+  
+  navigate(`/auth/login`)
 }
 catch (error){
   console.log("Could not create booking:",error)
@@ -289,4 +264,4 @@ return(
   </div>
 )
 }
-export default BookingCreate;
+export default BookingCreateGuest;
