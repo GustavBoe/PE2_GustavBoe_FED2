@@ -4,7 +4,7 @@ import getProfile from "@/api/profile/getProfile";
 import getProfileBookings from "@/api/bookings/getProfileBookings";
 import type {UserProfileData, VenuesWithBookings, BookingGET} from "@/interfacesAndTypes/types";
 import { accessToken, venueManager, userName, placeholder } from "@/const/const";
-import { VenueCard} from "@/components/VenueCard"
+import { ProfileVenueCard} from "@/components/ProfileVenueCard"
 import {PersonalBookingCard} from "@/components/PersonalBookingCard"
 import {UpcomingBookingCard} from "@/components/UpcomingBookingCard"
 
@@ -105,7 +105,7 @@ function ProfileView(){
             <div  className="flex flex-col items-center  pt-5 border border-border rounded-md shadow"> <h1 className="font-dm text-xl">Venues</h1>
             <div className='md:grid md:grid-cols-2 overflow-auto h-110 md:h-auto'>
                      {venues.map((venue) => (
-                       <VenueCard key={venue.id} {...venue} />
+                       <ProfileVenueCard key={venue.id} {...venue} />
                      ))}
                    </div> </div>)
             : 
@@ -142,7 +142,7 @@ function ProfileView(){
                      <Link to={"/venues/create"} className="px-4 py-2  mt-5 border border-border drop-shadow-sm font-medium rounded-sm hover:bg-border active:bg-bread text-text">Add venue +</Link>
                    <div className='md:grid md:grid-cols-2 overflow-auto h-110 md:h-auto'>
                      {venues.map((venue) => (
-                       <VenueCard key={venue.id} {...venue} />
+                       <ProfileVenueCard key={venue.id} {...venue} />
                      ))}
                    </div>
                    

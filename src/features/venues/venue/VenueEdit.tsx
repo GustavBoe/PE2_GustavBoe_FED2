@@ -36,8 +36,23 @@ export default function VenueEdit(){
     });
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const initialImage = {url:"", alt:""};
+  const [image, setImage] = useState<image>(initialImage);
+  const [isAdding, setIsAdding] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+  const handleAddImage = () => {
+  setIsAdding(true);
+  try{ 
+    setVenue(prev => ({
+    ...prev, 
+    media:[...prev.media ?? [], image]
+  }));
+  setImage(initialImage);
+}
+finally{
+  setIsAdding(false)
+};
+};
   
   useEffect(() => {
 
@@ -164,146 +179,188 @@ export default function VenueEdit(){
       }
       };
       return(
-        <div>
-          <form onSubmit={handleSubmit} className="flex flex-col mx-auto justify-center">
-            <h2 className="self-center">Edit venue</h2>
-            <div className="flex flex-col mx-auto justify-center con">
-              <div className="flex flex-col mx-auto justify-around gap-2">
+      <section className=" w-full h-full  md:bg-primary flex flex-col items-center text-text">
+        <div className="flex flex-col items-center h-full w-full md:w-[80%] mt-10 md:mt-0 pt-10 pb-15  mb-10 md:mb-0 border border-border bg-white rounded-md md:rounded-none drop-shadow-lg md:drop-shadow-none">
+          <form onSubmit={handleSubmit} className="flex flex-col items-center gap-5 w-full  bg-white font-inter">
+      <h2 className="font-dm font-medium text-2xl">Edit venue</h2>
+      <div className="flex flex-col w-[70%]">
+          <label htmlFor="name">Name of venue</label>
+        <input 
+        type="text"
+        id="name"
+        value={venue.name}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
+          setVenue(prev => ({...prev,
+             name: e.target.value
+            }))
+          }
+          required
+           className="pl-2 w-full text-xs inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+         </div>
+        <div  className="flex flex-col w-[70%]">
+          <label htmlFor="description">Venue description</label>
+        <textarea       
+        id="description"
+        value={venue.description}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>)=> 
+          setVenue(prev => ({...prev,
+             description: e.target.value
+            }))
+          }
+          rows={5}
+          className=" w-full resize-none pl-2 pt-2 text-xs inset-shadow-sm rounded-md border border-primary/25 h-full focus:outline-none focus:ring-2 focus:ring-primary"
+          required
+        />
+        </div>
+        <div className="flex flex-col w-[70%]">
+          <label htmlFor="image">Image of venue</label>
+        <input 
+        type="text"
+        id="image"
+        value={image.url}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
+          setImage(prev => ({...prev,
+             url: e.target.value
+            }))
+          }
+          className="pl-2 w-full text-xs inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+        <button type="button" disabled={isAdding} onClick={handleAddImage} className="px-7 py-2 mt-5 border border-primary rounded-md hover:bg-primary hover:text-white">
+          {isAdding ? "Adding image.." : "Add image"}
+        </button>
+        </div>
+      <div className="flex flex-row justify-around items-center border-t border-border pt-5 w-full">
+         
+       <div className="flex flex-col items-center"> 
+        <label htmlFor="maxGuests">Max guests</label>
+        <input 
+        type="number"
+        id="maxGuests"
+        value={venue.maxGuests}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
+          setVenue(prev => ({...prev,
+             maxGuests: Number(e.target.value),
+            }))
+          }
+          required
+        className="text-center w-15 h-7 inset-shadow-sm rounded-md border border-primary/25 focus:outline-none focus:ring-2 focus:ring-primary"
 
-             <label htmlFor="name">Name of venue</label>
-              <input
-              id="name"
-              type="text"
-              value={venue.name}
-              placeholder={venue.name}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
-                setVenue(prev => ({...prev,
-                   name: e.target.value
-                  }))
-                }
-              />
+        />
+        </div>
+        <div className="flex flex-col items-center">
+         <label htmlFor="price">Price</label>
+        <input 
+        type="number"
+        id="price"
+        value={venue.price}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
+          setVenue(prev => ({...prev,
+             price: Number(e.target.value),
+            }))
+          }
+          required
+           className="text-center w-20 h-7 inset-shadow-sm rounded-md border border-primary/25  focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+       </div>
+        <div className="flex flex-col items-center">
+        <label htmlFor="rating">Rating</label>
+        <input 
+        type="number"
+        id="rating"
+        value={venue.rating}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
+          setVenue(prev => ({...prev,
+             rating:Number(e.target.value),
+            }))
+          }
+        className="text-center w-15 h-7 inset-shadow-sm rounded-md border border-primary/25 focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+        </div>
+      </div>
+      
+        <div className="flex flex-col items-center gap-2 border-t border-border w-full pt-5">
+          <h2 className="font-dm text-xl">Accomodations</h2>
+            <div className="flex flex-row gap-5">
+          <div className="flex flex-col">
+            <label htmlFor="wifi" className="font-medium">Wifi</label>
+          <input
+          type="checkbox"
+          id="wifi"
+          checked={venue.meta.wifi}
+          onChange={(e:React.ChangeEvent<HTMLInputElement>)=>
+            setVenue(prev => ({
+              ...prev,
+              meta:{
+                ...prev.meta,
+                wifi: e.target.checked
+              }
+            }))
 
-            <label htmlFor="description">Describe your venue</label>
-              <textarea
-              id="description"
-              value={venue.description}
-              placeholder={venue.description}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>)=> 
-                setVenue(prev => ({...prev,
-                   description: e.target.value
-                  }))
-                }
-              />
+          }
+          />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="parking" className="font-medium">Parking</label>
+          <input
+          type="checkbox"
+          id="parking"
+          checked={venue.meta.parking}
+          onChange={(e:React.ChangeEvent<HTMLInputElement>)=>
+            setVenue(prev => ({
+              ...prev,
+              meta:{
+                ...prev.meta,
+                parking: e.target.checked
+              }
+            }))
 
-            <label htmlFor="price">Set price:</label>
-              <input 
-              type="number"
-              id="price"
-              value={venue.price}
-              placeholder={`${venue.price}`}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
-                setVenue(prev => ({...prev,
-                   price: Number(e.target.value),
-                  }))
-                }  
-                />
+          }
+          />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="breakfast" className="font-medium">Breakfast</label>
+          <input
+          type="checkbox"
+          id="breakfast"
+          checked={venue.meta.breakfast}
+          onChange={(e:React.ChangeEvent<HTMLInputElement>)=>
+            setVenue(prev => ({
+              ...prev,
+              meta:{
+                ...prev.meta,
+                breakfast: e.target.checked
+              }
+            }))
 
-            <label htmlFor="maxGuests">Maximum amount of guests:</label>
-              <input 
-              type="number"
-              id="maxGuests"
-              value={venue.maxGuests}
-              placeholder={`${venue.maxGuests}`}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
-                setVenue(prev => ({...prev,
-                   maxGuests: Number(e.target.value),
-                  }))
-                }
-              />
+          }
+          />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="pets" className="font-medium">Pets</label>
+          <input
+          type="checkbox"
+          id="pets"
+          checked={venue.meta.pets}
+          onChange={(e:React.ChangeEvent<HTMLInputElement>)=>
+            setVenue(prev => ({
+              ...prev,
+              meta:{
+                ...prev.meta,
+                pets: e.target.checked
+              }
+            }))
+          }
+          />
+          </div>
+          </div>
+          </div>
+        <div className="flex flex-col items-center gap-2 border-t border-border w-full pt-5">
 
-              <label htmlFor="rating">Rating:</label>
-                <input 
-                type="number"
-                id="rating"
-                value={venue.rating}
-                placeholder={`${venue.rating}`}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
-                  setVenue(prev => ({...prev,
-                     rating: Number(e.target.value),
-                    }))
-                  }
-                />
-              </div>
-              <div className="flex flex-col mx-auto justify-center">
-                <h2>Accomodations:</h2>
-                <label htmlFor="wifi">Wifi</label>
-                  <input
-                  type="checkbox"
-                  id="wifi"
-                  checked={venue.meta.wifi}
-                  onChange={(e:React.ChangeEvent<HTMLInputElement>)=>
-                    setVenue(prev => ({
-                      ...prev,
-                      meta:{
-                        ...prev.meta,
-                        wifi: e.target.checked
-                      }
-                    }))
-                  
-                  }
-                  />
-                <label htmlFor="parking">Parking</label>
-                  <input
-                  type="checkbox"
-                  id="parking"
-                  checked={venue.meta.parking}
-                  onChange={(e:React.ChangeEvent<HTMLInputElement>)=>
-                    setVenue(prev => ({
-                      ...prev,
-                      meta:{
-                        ...prev.meta,
-                        parking: e.target.checked
-                      }
-                    }))
-                  
-                  }
-                  />
-                <label htmlFor="breakfast">Breakfast</label>
-                  <input
-                  type="checkbox"
-                  id="breakfast"
-                  checked={venue.meta.breakfast}
-                  onChange={(e:React.ChangeEvent<HTMLInputElement>)=>
-                    setVenue(prev => ({
-                      ...prev,
-                      meta:{
-                        ...prev.meta,
-                        breakfast: e.target.checked
-                      }
-                    }))
-                  
-                  }
-                  />
-                <label htmlFor="pets">Pets</label>
-                  <input
-                  type="checkbox"
-                  id="pets"
-                  checked={venue.meta.pets}
-                  onChange={(e:React.ChangeEvent<HTMLInputElement>)=>
-                    setVenue(prev => ({
-                      ...prev,
-                      meta:{
-                        ...prev.meta,
-                        pets: e.target.checked
-                      }
-                    }))
-                  
-                  }
-                  />
-              </div>
-              <div className="flex flex-col mx-auto justify-center">
-                <h2>Location</h2>
-                  <label htmlFor="address">Address</label>
+          <h2 className="font-dm text-xl">Location</h2>
+
+          <div className="flex flex-col">
+          <label htmlFor="address">Address</label>
         <input 
         type="text"
         id="address"
@@ -317,8 +374,12 @@ export default function VenueEdit(){
               }
             }))
           }
+        className="pl-2 h-10 shadow-sm rounded-md border border-primary/25 focus:outline-none focus:ring-2 focus:ring-primary"
+
         />
-        <label htmlFor="city">City</label>
+          </div>
+          <div className="flex flex-col">
+          <label htmlFor="city">City</label>
         <input 
         type="text"
         id="city"
@@ -332,8 +393,13 @@ export default function VenueEdit(){
               }
             }))
           }
+        className="pl-2 inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
+
         />
-        <label htmlFor="zip">Zip code</label>
+          </div>
+        
+        <div className="flex flex-col">
+          <label htmlFor="zip">Zip code</label>
         <input 
         type="text"
         id="zip"
@@ -347,8 +413,11 @@ export default function VenueEdit(){
               }
             }))
           }
+           className=" text-center w-15 inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
         />
-        <label htmlFor="country">Country</label>
+        </div>
+       <div className="flex flex-col ">
+         <label htmlFor="country">Country</label>
         <input 
         type="text"
         id="country"
@@ -362,8 +431,12 @@ export default function VenueEdit(){
               }
             }))
           }
+      className="pl-2 inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
+
       />
-      <label htmlFor="continent">Continent</label>
+       </div>
+        <div className="flex flex-col ">
+           <label htmlFor="continent">Continent</label>
         <input 
         type="text"
         id="continent"
@@ -377,46 +450,59 @@ export default function VenueEdit(){
               }
             }))
           }
+        className="pl-2 inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
+
         />
-        <label htmlFor="lat">Lat</label>
+        </div>
+     <div className="flex flex-row justify-around w-65">
+      <div className="flex flex-col items-center">
+         <label htmlFor="lat">Lat</label>
         <input 
-        type="number"
+        type="text"
         id="lat"
         value={venue.location.lat}
-        placeholder={`${venue.location.lat}`}
         onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
           setVenue(prev => ({
               ...prev,
               location:{
                 ...prev.location,
-                lat: Number(e.target.value)
+                lat:  Number(e.target.value)
               }
             }))
           }
+        className=" text-center w-15 pl-3 inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
+
         />
+       </div>
+        <div className="flex flex-col items-center">
         <label htmlFor="lng">Lng</label>
         <input 
         type="number"
         id="lng"
         value={venue.location.lng}
-        placeholder={`${venue.location.lng}`}
         onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
           setVenue(prev => ({
               ...prev,
               location:{
                 ...prev.location,
-                lng: Number(e.target.value)
+                lng:Number(e.target.value)
               }
             }))
           }
+        className=" text-center w-15 pl-3 inset-shadow-sm rounded-md border border-primary/25 h-10 focus:outline-none focus:ring-2 focus:ring-primary"
         />
-              </div>
-            </div>
-            <button type="submit" disabled={isSubmitting}>
+        </div>
+     </div>
+       
+        </div>
+      
+     <button type="submit" disabled={isSubmitting} className="px-7 py-2 border border-primary rounded-md mt-5 hover:bg-primary hover:text-white">
               {isSubmitting ? 'Saving changes..' : 'Save changes'}
             </button>
-          </form>
-        <button type="button" onClick={handleDelete} >Delete venue</button>
-        </div>
+            <button type="button" onClick={handleDelete} className="px-5 py-1 border border-alarm text-alarm rounded-md hover:bg-alarm hover:text-white mt-5">Delete venue</button>
+    </form>
+            
+                </div>
+        </section>
       )
   }

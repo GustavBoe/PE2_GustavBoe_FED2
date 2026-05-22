@@ -41,9 +41,9 @@ function CreateVenue(){
   name: "",
   description: "",
   media:[] as image[],
-  price:"",
-  maxGuests:"",
-  rating:"",
+  price:0,
+  maxGuests:0,
+  rating:0,
   created: "",
   updated: "",
   meta: {
@@ -58,8 +58,8 @@ function CreateVenue(){
     zip:"",
     country:"",
     continent:"",
-    lat:"",
-    lng:""
+    lat:0,
+    lng:0
   } 
 });
 
@@ -178,7 +178,7 @@ return(
         value={venue.maxGuests}
         onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
           setVenue(prev => ({...prev,
-             maxGuests:  e.target.value === "" ? "" : Number(e.target.value),
+             maxGuests: Number(e.target.value),
             }))
           }
           required
@@ -194,7 +194,7 @@ return(
         value={venue.price}
         onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
           setVenue(prev => ({...prev,
-             price: e.target.value === "" ? "" : Number(e.target.value),
+             price: Number(e.target.value),
             }))
           }
           required
@@ -209,13 +209,14 @@ return(
         value={venue.rating}
         onChange={(e: React.ChangeEvent<HTMLInputElement>)=> 
           setVenue(prev => ({...prev,
-             rating:  e.target.value === "" ? "" : Number(e.target.value),
+             rating:Number(e.target.value),
             }))
           }
         className="text-center w-15 h-7 inset-shadow-sm rounded-md border border-primary/25 focus:outline-none focus:ring-2 focus:ring-primary"
         />
         </div>
       </div>
+      
         <div className="flex flex-col items-center gap-2 border-t border-border w-full pt-5">
           <h2 className="font-dm text-xl">Accomodations</h2>
             <div className="flex flex-row gap-5">
@@ -403,7 +404,7 @@ return(
               ...prev,
               location:{
                 ...prev.location,
-                lat:  e.target.value === "" ? "" : Number(e.target.value)
+                lat:  Number(e.target.value)
               }
             }))
           }
@@ -422,7 +423,7 @@ return(
               ...prev,
               location:{
                 ...prev.location,
-                lng:  e.target.value === "" ? "" : Number(e.target.value)
+                lng:Number(e.target.value)
               }
             }))
           }

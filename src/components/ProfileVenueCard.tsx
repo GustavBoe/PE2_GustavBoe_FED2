@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {Wifi, Coffee,PawPrint, CarFront, MapPin, Users, Star} from "lucide-react";
 import { placeholder } from '@/const/const';
 
-export function VenueCard({...venue} : AllVenuesData){
+export function ProfileVenueCard({...venue} : AllVenuesData){
     
   const imageUrl =
     venue.media && venue.media.length > 0
@@ -18,13 +18,16 @@ export function VenueCard({...venue} : AllVenuesData){
     <Link to={`/venues/${venue.id}`}>
       <div className="flex flex-row gap-3 w-85 h-30 shadow-md m-5 rounded-md text-text group active:bg-success active:text-white hover:bg-border  hover:shadow-lg">
         
-        <div >
+        <div>
           <img src={imageUrl} alt={imageAlt} className="w-25 h-full object-cover rounded-l-md"/>
           </div>
         
         <div className="flex flex-col items-start gap-2 w-55 pt-2 pr-5">
+          <div className="flex flex-row justify-between items-center gap-5">
+            <h1 className="font-dm text-lg">{venue.name.slice(0,22)}..</h1>
+            <Link to={`/venues/${venue.id}/edit`}>Edit</Link>
+          </div>
           
-          <h1 className="font-dm text-lg">{venue.name.slice(0,22)}..</h1>
           
           <div className="flex flex-row justify-between w-30">
           {venue.meta.wifi ? <Wifi size={14} className="text-primary group-active:text-white"/> : <Wifi size={14} className="text-bread "/>}
