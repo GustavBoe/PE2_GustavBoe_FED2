@@ -41,7 +41,9 @@ export type AllVenuesData = {
   rating?:number;
   meta: venueMeta;
   location:venueLocation;
+  owner:userData;
 }
+
 export type VenuesWithBookings = AllVenuesData & {
   bookings?: BookingGET[];
 }

@@ -1,10 +1,12 @@
-import type { AllVenuesData } from '@/interfacesAndTypes/types';
+
+import type { AllVenuesData} from '@/interfacesAndTypes/types';
 import { Link } from 'react-router-dom';
 import {Wifi, Coffee,PawPrint, CarFront, MapPin, Users, Star} from "lucide-react";
 import { placeholder } from '@/const/const';
 
-export function ProfileVenueCard({...venue} : AllVenuesData){
-    
+export function ProfileVenueCard({...venue}:AllVenuesData){
+     
+     console.log(venue)
   const imageUrl =
     venue.media && venue.media.length > 0
       ? venue.media[0].url
@@ -24,8 +26,9 @@ export function ProfileVenueCard({...venue} : AllVenuesData){
         
         <div className="flex flex-col items-start gap-2 w-55 pt-2 pr-5">
           <div className="flex flex-row justify-between items-center gap-5">
-            <h1 className="font-dm text-lg">{venue.name.slice(0,22)}..</h1>
-            <Link to={`/venues/${venue.id}/edit`}>Edit</Link>
+            <h1 className="font-dm text-lg">{venue.name.slice(0,18)}..</h1>
+
+             <Link to={`/venues/${venue.id}/edit`}>Edit</Link>
           </div>
           
           

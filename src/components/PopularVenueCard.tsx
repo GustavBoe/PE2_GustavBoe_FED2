@@ -24,7 +24,8 @@ export function PopularVenueCard({...venue} : AllVenuesData){
         
         <div className="flex flex-col items-center gap-5 w-55 pt-2 pr-5">
           
-          <h1 className="font-dm text-2xl">{venue.name.slice(0,20)}</h1>
+          <h1 className="font-dm text-2xl">{venue.name.slice(0,18
+          )}</h1>
           
           <div className="grid grid-cols-3 items-center w-60">
 

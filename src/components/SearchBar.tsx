@@ -56,7 +56,7 @@ export default function SearchBar({allVenues}:VenuesAllViewProps){
           /></div>
           
            {processedVenues.length > 0 ? (
-        <li className='list-none md:grid md:grid-cols-2'>
+        <li className='list-none md:grid md:grid-cols-2 lg:grid-cols-3'>
           {processedVenues.map((venue) => (
             <VenueCard key={venue.id} {...venue} />
           ))}
