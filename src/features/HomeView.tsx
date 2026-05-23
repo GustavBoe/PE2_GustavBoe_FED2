@@ -47,7 +47,7 @@ export default function HomeView(){
       Holidazing...
     </p>
   </div> : (
-      <section className="flex flex-col items-center text-text">
+      <section className="flex flex-col items-center text-text  mb-20">
     <div className="relative flex justify-center text-white overflow-hidden h-165 w-full mb-10">
       <img src="https://i.imghippo.com/files/ohKo6602UDk.jpg" alt="Image" className="w-full h-full object-cover object-center blur-[1px]"/>
       <div className="absolute inset-0 bg-primary/70"></div>

@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams,useLocation, Link } from "react-router-dom";
 import getProfile from "@/api/profile/getProfile";
 import getProfileBookings from "@/api/bookings/getProfileBookings";
 import type {UserProfileData, VenuesWithBookings, BookingGET} from "@/interfacesAndTypes/types";
@@ -8,10 +8,11 @@ import { ProfileVenueCard} from "@/components/ProfileVenueCard"
 import {PersonalBookingCard} from "@/components/PersonalBookingCard"
 import {UpcomingBookingCard} from "@/components/UpcomingBookingCard"
 
+
 function ProfileView(){
   
   const {name} = useParams<{name:string}>();
-  
+  const location = useLocation();
  const [user, setUser] = useState<UserProfileData | null>(null);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -20,14 +21,15 @@ function ProfileView(){
   const [bookings,setBookings] = useState<BookingGET[]>([])
   const upcomingBookings = venues.flatMap((venue:VenuesWithBookings) => venue.bookings || []).sort((a:BookingGET,b:BookingGET)=> new Date(a.dateFrom).getTime()-new Date(b.dateFrom).getTime())
            
-  const [activeTab, setActiveTab] = useState<"venues" | "upcoming" | "bookings" | null>("venues"); /*ChatGPTs idea after I presented mine*/ 
+  const [activeTab, setActiveTab] = useState<"venues" | "upcoming" | "bookings" | null>("venues"); /*ChatGPT idea after I presented mine*/ 
+  
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.clear();
     navigate("/")
   }
 
-
+  
   useEffect(() => {
     
     if (!name) return;
@@ -37,7 +39,7 @@ function ProfileView(){
         navigate("/auth/login")
         return
       }
-      
+     
       const loadProfile = async() => {
         setIsLoading(true)
         try{
@@ -63,7 +65,15 @@ function ProfileView(){
       loadProfile();
 
   }, [name, navigate]);
-  
+  useEffect(()=>{
+    if(location.state){
+      setActiveTab(location.state)
+    }
+    else{
+      setActiveTab("venues")
+    }
+    
+  },[location.state])
 
   if (isLoading) return (<div className="flex items-center justify-center min-h-screen">
     <p className="animate-bounce text-xl text-primary font-medium">
