@@ -39,8 +39,8 @@ export default function Header(){
       <Link to={"/auth/register"} className="hover:underline hover:decoration-primary">Register</Link> 
       <Link to={"/auth/login"} className="hover:underline hover:decoration-primary">Login</Link>
       </>
-      ) 
-      : venueManager?
+      )
+      :venueManager ?
       (<>
       <Link to={"/"} className="hover:underline hover:decoration-primary">Home</Link>
         <Link to={"/venues"} className="hover:underline hover:decoration-primary"> All Venues</Link> 
@@ -55,11 +55,12 @@ export default function Header(){
          
          </div>
          </> )
-        :
-         (<>
+         
+      : (
+         <>
          <Link to={"/"} className="hover:underline hover:decoration-primary">Home</Link>
         <Link to={"/venues"} className="hover:underline hover:decoration-primary"> All Venues</Link> 
-         <Link to={`/profile/${userName}`} state={headerStateMyBookings} className="hover:underline hover:decoration-primary"> My bookings</Link> 
+         <Link to={`/profile/${userName}`} className="hover:underline hover:decoration-primary"> My bookings</Link> 
          <div className="flex flex-row items-center gap-8">
          <Link to={`/profile/${userName}`} className="hover:underline hover:decoration-primary">{userName} </Link>
          <div className="rounded-full border border-primary overflow-clip">
@@ -67,8 +68,9 @@ export default function Header(){
          </div>
          
          </div>
-         </> )
-      }
+         </>
+        )
+}
 
     </div>
     
@@ -110,7 +112,7 @@ export default function Header(){
         <div className="flex flex-col items-center text-center w-full">
       <Link to={"/"} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}>Home</Link> 
         <Link to={"/venues"} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}> All Venues</Link> 
-         <Link to={`/profile/${userName}/bookings`} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}> My bookings</Link> 
+         <Link to={`/profile/${userName}`} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}> My bookings</Link> 
          <div className="flex flex-row items-center gap-4 py-2">
          <Link to={`/profile/${userName}`} onClick={() => setIsOpen(prev => !prev)}>{userName} </Link>
          <div className="rounded-full border-2 border-primary overflow-clip">

@@ -119,7 +119,7 @@ function ProfileView(){
                      ))}
                    </div> </div>)
             : 
-            isOwner && venueManager ? 
+            venueManager ? 
             (<div className="flex flex-row w-[90%] justify-around">
               <button 
              className={activeTab === "venues" ? "w-full border rounded-l-md h-10 border-border bg-border px-2 cursor-pointer" : "w-full rounded-l-md border h-10 border-border px-2 cursor-pointer" } 
@@ -136,13 +136,36 @@ function ProfileView(){
                 className={activeTab === "bookings" ? "w-full rounded-r-md border-y border-r h-10 border-border bg-border px-2 cursor-pointer" : "w-full rounded-r-md border h-10 border-border px-2 cursor-pointer" }
                  onClick={()=>{setActiveTab("bookings")}}
                 >My bookings</button>
-              </div>)
+              </div>
+              )
             :
-            (<h1 className="font-dm text-xl">My bookings</h1>)
+            (
+            <>
+            
+            <div className="h-full mt-5 flex flex-col">
+              {bookings.length > 0 ? (
+               <div className="flex flex-col items-center  pt-5 border border-border rounded-md shadow">
+                   <h1 className="font-dm text-2xl">My bookings</h1>
+                   <div className='md:grid md:grid-cols-2'>
+                     {bookings.map((booking) => (
+                       <PersonalBookingCard key={booking.id} {...booking} />
+                     ))}
+                   </div>
+                   </div>
+                 ) : (
+                  <div className="flex flex-col text-center mt-5 mb-25 justify-around h-25">
+                    <p className="mt-5 text-bread">No bookings to show</p>
+                  <Link to={"/venues"} className="px-4 py-2 border border-border drop-shadow-sm font-medium rounded-sm hover:bg-border active:bg-bread">Book a venue</Link>
+                  </div>
+                   )
+           
+                  }
+             </div></>)
+
             }
             
           </div>
-          {isOwner 
+          {isOwner && venueManager
           ? 
           <>
           <div className="h-full mt-5 flex flex-col">
@@ -201,8 +224,8 @@ function ProfileView(){
           </div>
           <button onClick={handleLogout} className="bg-alarm hover:bg-alarm/85 active:bg-alarm px-20 py-2 mt-30 mb-25 text-white font-inter rounded-md">Log out</button>
           </>
-          : 
-          null}
+          : null}
+        
           
         </div>
         </div>
