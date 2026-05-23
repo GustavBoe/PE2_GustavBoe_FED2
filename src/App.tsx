@@ -15,9 +15,9 @@ import VenueCreate from "./features/venues/venue/VenueCreate";
 import VenueEdit from "./features/venues/venue/VenueEdit";
 import BookingLayout from './features/bookings/booking/BookingLayout';
 import BookingView from './features/bookings/booking/BookingView';
-
 import BookingsAllView from './features/bookings/BookingsAllView';
 import BookingSuccess from './features/bookings/booking/BookingSuccess';
+import ErrorView from './features/error/ErrorView';
 function App() {
   
   return (
@@ -47,7 +47,9 @@ function App() {
           <Route index element={<VenueView/>}/>
           <Route path="edit" element={<VenueEdit/>}/>
       </Route>
+      <Route path="*" element={<ErrorView/>}/>
       </Route>
+      
     </Routes>
     
    </div>
