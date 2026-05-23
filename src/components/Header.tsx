@@ -4,6 +4,7 @@ import {userName, accessToken, venueManager, userAvatar, placeholder} from "@/co
 import { Menu, X } from "lucide-react";
 
 
+
 export default function Header(){
   const [isOpen, setIsOpen] = useState(false)
   const isLoggedIn = ! !accessToken;
@@ -23,7 +24,7 @@ export default function Header(){
   const headerStateVenues = "venues";
   const headerStateMyBookings = "bookings";
   const headerStateUpcoming = "upcoming";
-
+ 
   return(
    <nav ref={wrapperRef} className="flex flex-row items-center relative md:flex md:justify-between  h-15 border-b border-border text-primary">
     <div  className="flex items-center justify-between px-7 w-full text-xs">
@@ -99,12 +100,14 @@ export default function Header(){
         <Link to={`/profile/${userName}`} onClick={() => setIsOpen(prev => !prev)}>{userName} </Link>
         <div className="rounded-full border-2 border-primary overflow-clip">
          <img src={userAvatar || placeholder}  alt="profile image" className="w-10 h-10 object-cover"/>
+         
         </div>
         
         </div>
         </div> ) 
       : 
-      (<>
+      (
+        <div className="flex flex-col items-center text-center w-full">
       <Link to={"/"} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}>Home</Link> 
         <Link to={"/venues"} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}> All Venues</Link> 
          <Link to={`/profile/${userName}/bookings`} className="w-full border-b border-border py-2" onClick={() => setIsOpen(prev => !prev)}> My bookings</Link> 
@@ -115,7 +118,7 @@ export default function Header(){
          </div>
          
          </div>
-         </> )}
+         </div> )}
 
     </div>
    )}

@@ -64,7 +64,7 @@ export default function HomeView(){
     
     <h2 className="font-dm text-3xl">Popular venues</h2>
 
-    <div className="flex flex-row items-center mt-5 h-92 w-95 md:w-190 overflow-x-auto snap-x snap-mandatory scroll-smooth">
+    <div className="flex flex-row items-center mt-5 h-100 w-110 border border-border inset-shadow-sm rounded-md md:w-190 overflow-scroll snap-x snap-mandatory scroll-smooth scrollbar-x">
    {popularVenues.map(venue => (
     <div className="snap-center shrink-0">
     <PopularVenueCard key={venue.id} {...venue} />
