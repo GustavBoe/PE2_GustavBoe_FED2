@@ -78,9 +78,7 @@ export default function VenueView(){
                       owner: venueData.owner
 
                     })
-                    if(venue.owner.name === userName){
-                      setIsOwner(true)
-                    }
+                    setIsOwner(venueData.owner.name === userName)
                   }
           catch (err) {
           alert(err)
@@ -231,13 +229,15 @@ export default function VenueView(){
   </div>
 </div>
     <div className="w-full mt-15 flex flex-col gap-2 items-center">
-      
-     { accessToken && !isOwner ?( <>
-     <h2 className="font-dm font-semibold text-xl pl-5">Place booking</h2>
-     <BookingCreate venueId={venueId} maxGuests={maxGuests}/> </>)
-     : isOwner ? (<><Link to={`/venues/{venueId}/edit`}><button className="mt-5 py-2 px-7 rounded-md bg-primary text-white font-inter hover:bg-primary/75  active:bg-primary ">Edit venue</button></Link></>):
-    <BookingCreateGuest venueId={venueId} maxGuests={maxGuests}/>
-    } 
+      {isOwner ? (
+        <Link to={`/venues/${venueId}/edit`}>
+          <button className="mt-5 py-2 px-7 rounded-md bg-primary text-white font-inter hover:bg-primary/75  active:bg-primary ">Edit venue</button>
+        </Link>
+      ) : accessToken ? (
+        <BookingCreate venueId={venueId} maxGuests={maxGuests} />
+      ) : (
+        <BookingCreateGuest venueId={venueId} maxGuests={maxGuests} />
+      )}
     </div>
      
     

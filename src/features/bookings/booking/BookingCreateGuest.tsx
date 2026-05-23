@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import type { BookingDataPOST, CreateBookingProps,image, userData, VenueCheckBookings } from "@/interfacesAndTypes/types";
-import { accessToken } from "@/const/const";
+
 import getVenue from "@/api/venues/getVenue";
 
 
@@ -133,14 +133,8 @@ const [isSubmitting, setIsSubmitting] = useState(false);
 const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   setIsSubmitting(true);
-  
+  navigate(`/auth/login`)
   try{
-    if(!accessToken){
-      navigate(`/auth/login`)
-    }
-    
-  
-  
   navigate(`/auth/login`)
 }
 catch (error){
