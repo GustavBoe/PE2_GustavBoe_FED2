@@ -14,7 +14,6 @@
 - ESLint v10
 - _TypeScript v6.0.3_
 - _Tailwind v4.3_
-  (https://www.imghippo.com/i/JKy4620u.png)
 
 ### Installation
 
@@ -36,7 +35,8 @@
 ```bash
 Go to  http://localhost:5173/ in your preferred browser to see the app
 ```
-
+> #### Good to know:
+>> **The project lacks an useAuth(), so the user has to manually refresh the pages for the components to change state!**
 ### Help given from _ChatGPT_ and _Google AI Mode(Search results)_\*\*
 
 > **(Code snippets are marked in files as well)**
