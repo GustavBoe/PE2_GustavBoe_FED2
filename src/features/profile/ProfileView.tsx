@@ -142,7 +142,7 @@ function ProfileView(){
             (
             <>
             
-            <div className="h-full mt-5 flex flex-col">
+            <div className="h-full mt-5 flex flex-col items-center">
               {bookings.length > 0 ? (
                <div className="flex flex-col items-center  pt-5 border border-border rounded-md shadow">
                    <h1 className="font-dm text-2xl">My bookings</h1>
@@ -160,6 +160,7 @@ function ProfileView(){
                    )
            
                   }
+               <button onClick={handleLogout} className="bg-alarm hover:bg-alarm/85 active:bg-alarm px-20 py-2 mt-30 mb-25 text-white font-inter rounded-md">Log out</button>
              </div></>)
 
             }
