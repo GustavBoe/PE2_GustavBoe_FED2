@@ -28,7 +28,7 @@ export function ProfileVenueCard({...venue}:AllVenuesData){
           <div className="flex flex-row justify-between items-center gap-5">
             <h1 className="font-dm text-lg">{venue.name.slice(0,18)}..</h1>
 
-             <Link to={`/venues/${venue.id}/edit`}>Edit</Link>
+            
           </div>
           
           

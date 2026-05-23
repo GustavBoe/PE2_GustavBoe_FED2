@@ -183,7 +183,7 @@ function ProfileView(){
                  )  : null}
             {activeTab === "bookings" ?(bookings.length > 0 ? (
                <div className="flex flex-col items-center  pt-5 border border-border rounded-md shadow">
-                   <h1 className="font-dm text-2xl">Your bookings</h1>
+                   <h1 className="font-dm text-2xl">My bookings</h1>
                    <div className='md:grid md:grid-cols-2'>
                      {bookings.map((booking) => (
                        <PersonalBookingCard key={booking.id} {...booking} />
