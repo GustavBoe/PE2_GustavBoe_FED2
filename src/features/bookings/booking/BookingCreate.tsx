@@ -102,9 +102,7 @@ const isAvailable = (date: Date) => {
     return false;
   }
   if (booking.guests <= 0) return false;
-
   
-
   return (
     guestsBooked + booking.guests <=
     venueBookingFilter.maxGuests

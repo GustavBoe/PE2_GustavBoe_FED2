@@ -29,9 +29,7 @@ const [isSubmitting, setIsSubmitting] = useState(false);
 const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   setIsSubmitting(true);
-  ;
 
-  
   try{
     const response = await fetch(`${BASE_URL}/auth/register`, {
       method: "POST",
@@ -42,7 +40,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
       body: JSON.stringify(user)
     });
     const responseData = await response.json()
-    console.log(responseData);
+    
 
     if(!response.ok){
       const errorMessage = 

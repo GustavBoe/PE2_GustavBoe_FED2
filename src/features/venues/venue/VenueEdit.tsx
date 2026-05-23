@@ -133,7 +133,7 @@ finally{
             body: JSON.stringify(venue)
           });
           const responseData = await response.json()
-          console.log(responseData);
+          
           if(!response.ok){
             console.log(API_KEY)
             const errorMessage = 

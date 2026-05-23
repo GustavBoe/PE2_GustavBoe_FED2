@@ -15,7 +15,6 @@ import VenueCreate from "./features/venues/venue/VenueCreate";
 import VenueEdit from "./features/venues/venue/VenueEdit";
 import BookingLayout from './features/bookings/booking/BookingLayout';
 import BookingView from './features/bookings/booking/BookingView';
-
 import BookingSuccess from './features/bookings/booking/BookingSuccess';
 import ErrorView from './features/error/ErrorView';
 function App() {
@@ -30,7 +29,7 @@ function App() {
 
       <Route path="/profile/:name" element= {<ProfileLayout/>}>
         <Route index element={<ProfileView/>} />
-        {/* <Route path="venues" element={ProfileVenues}/>*/}
+       
         <Route path="edit" element={<ProfileEdit/>}/>
         <Route path="bookings/:id" element={<BookingLayout/>}>
           <Route index element={<BookingView/>}/>
@@ -55,12 +54,3 @@ function App() {
 }
 
 export default App
-/**
- <Route path="/venues" element={<AllVenuesView/>}
- */
-/**<Route path="/venue" element={<VenueLayout/>}>
- <Route path="/:id"element={<VenueView/>}> 
- <Route path="edit" element={<VenueEdit/>}>
- </Route>
-  <Route path="create" element={<VenueCreate/>}
- </Route>*/

@@ -43,7 +43,7 @@ const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     addToLocalStorage("userName", userName);
     addToLocalStorage("venueManager", venueManager)
     addToLocalStorage("userAvatar", userAvatar);
-    console.log(venueManager)
+    
     if(!response.ok){
       const errorMessage = 
       responseData.errors?.[0]?.message ||
