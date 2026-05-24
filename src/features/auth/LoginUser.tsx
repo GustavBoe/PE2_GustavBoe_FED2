@@ -62,7 +62,7 @@ finally{
   }
 };
 return(
-    <section className="flex flex-col items-center text-text">
+    <section className="flex flex-col items-center text-text mt-15">
       <h2 className="font-dm font-medium text-2xl">Log in</h2>
     <form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-10">
       <div className="flex flex-col">
