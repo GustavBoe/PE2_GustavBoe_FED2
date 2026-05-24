@@ -21,45 +21,65 @@
    ```bash
    git clone https://github.com/GustavBoe/PE2_GustavBoe_FED2
    ```
-2. Install dependencies:
+2. Install dependencies
+
    ```bash
    npm install
    ```
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
- ### Other scripts
- #### Build
 
- ```bash
- npm run build
- ```
+3. Create environment variables
 
- Output is in the `dist/` directory.
+You can also copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+Then add your API key (from https://docs.noroff.dev/docs/v2/auth/api-key) to the `.env` file:
+
+```env
+VITE_API_KEY=your_noroff_api_key
+```
+
+4.  Start the development server
+
+```bash
+npm run dev
+```
+
+### Other scripts
+
+#### Build
+
+```bash
+npm run build
+```
+
+Output is in the `dist/` directory.
+
 #### Preview Production Build
 
 ```bash
 npm run preview
 ```
+
 #### Lint
 
 ```bash
 npm run lint
 ```
+
 ### Viewing app
 
 ```bash
 Go to  http://localhost:5173/ in your preferred browser to see the app
 ```
+
 > #### Good to know:
->> **The project lacks an useAuth(), so the user has to manually refresh the pages for the components to change state!**
-
-
+>
+> > **The project lacks an useAuth(), so the user has to manually refresh the pages for the components to change state!**
 
 ### Help given from _ChatGPT_ and _Google AI Mode(Search results)_\*\*
-
-
 
 > **(Code snippets are marked in files as well)**
 
