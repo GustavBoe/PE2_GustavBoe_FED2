@@ -79,6 +79,11 @@ Go to  http://localhost:5173/ in your preferred browser to see the app
 >
 > > **The project lacks an useAuth(), so the user has to manually refresh the pages for the components to change state!**
 
+## Contact
+
+[My LinkedIn page](www.linkedin.com/in/gustav-hugo-bøe-ab16473b3)
+
+
 ### Help given from _ChatGPT_ and _Google AI Mode(Search results)_\*\*
 
 > **(Code snippets are marked in files as well)**
@@ -95,3 +100,7 @@ Go to  http://localhost:5173/ in your preferred browser to see the app
 - Creating image for placeholder
 - **React date picker and date formatting**
 - Tailwind classes for image carousel
+
+## Author
+
+**GustavBoe**
